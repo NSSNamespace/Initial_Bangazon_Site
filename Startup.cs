@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Bangazon.Data;
 
 namespace BangazonWeb
 {
@@ -34,8 +36,10 @@ namespace BangazonWeb
             {
                 options.AddPolicy("AllowDevelopmentEnvironment", // allowing anyone to request anything in any way.
                     builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
+                        .AllowAnyOrigin() //this allows IP addresses/origins of anytime, could read something like ".WithOrigins("194.346.4.5" OR "acme.com")
+                        .AllowAnyMethod() //such as get/post/put etc.
+
+                        //CORS can go either in Startup OR on database methods themselves (for specificity)
                         .AllowAnyHeader());
             });
 
@@ -67,6 +71,8 @@ namespace BangazonWeb
             {
                 routes.MapRoute(
                     name: "default",
+                    //this is configuring the URL as controller/method/view name
+                    //controller name MUST match route naming, method must match method route name, etc.
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
