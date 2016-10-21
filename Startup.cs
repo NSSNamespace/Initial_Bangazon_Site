@@ -60,7 +60,7 @@ namespace BangazonWeb
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Products/Error");
             }
 
             app.UseStaticFiles();
@@ -69,7 +69,9 @@ namespace BangazonWeb
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    //this is configuring the URL as controller/method/view name
+                    //controller name MUST match route naming, method must match method route name, etc.
+                    template: "{controller=Products}/{action=Index}/{id?}");
             });
         }
     }
