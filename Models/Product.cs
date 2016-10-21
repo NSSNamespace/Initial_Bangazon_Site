@@ -28,6 +28,6 @@ namespace Bangazon.Models
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
     
-    public ICollection<OrderProduct> OrduerProduct;
+    public ICollection<OrderProduct> OrderProduct;
   }
 }
