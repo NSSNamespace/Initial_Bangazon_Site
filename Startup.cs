@@ -36,8 +36,10 @@ namespace BangazonWeb
             {
                 options.AddPolicy("AllowDevelopmentEnvironment", // allowing anyone to request anything in any way.
                     builder => builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
+                        .AllowAnyOrigin() //this allows IP addresses/origins of anytime, could read something like ".WithOrigins("194.346.4.5" OR "acme.com")
+                        .AllowAnyMethod() //such as get/post/put etc.
+
+                        //CORS can go either in Startup OR on database methods themselves (for specificity)
                         .AllowAnyHeader());
             });
 
