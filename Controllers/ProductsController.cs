@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BangazonWeb.Data;
+using Bangazon.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +21,21 @@ namespace BangazonWeb.Controllers
         {
             return View(await context.Product.ToListAsync());
         }
-        public CreateProduct()
+        [HttpGet]
+        public Create()
+        {
+
+        }
+        [HttpPost]
+        public Create(ProductType int)
+        {
+
+        }
+        public About()
+        {
+
+        }
+        public Contact()
         {
 
         }
