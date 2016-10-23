@@ -19,14 +19,10 @@ namespace BangazonWeb.Controllers
             context = ctx;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View(await context.Product.ToListAsync());
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Customer customer)
+        public async Task<IActionResult> New(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -34,9 +30,13 @@ namespace BangazonWeb.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(customer);
+            return View();
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         public IActionResult Error()
         {
