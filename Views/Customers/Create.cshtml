@@ -8,25 +8,25 @@
 
 <form asp-action="New">
     <div class="form-horizontal">
-        <h4>New Customer</h4>
+        <h4>Create an Account</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label"></label>
+            <label asp-for="FirstName" class="col-md-2 control-label">First Name</label>
             <div class="col-md-10">
                 <input asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="LastName" class="col-md-2 control-label"></label>
+            <label asp-for="LastName" class="col-md-2 control-label">Last Name</label>
             <div class="col-md-10">
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="StreetAddress" class="col-md-2 control-label"></label>
+            <label asp-for="StreetAddress" class="col-md-2 control-label">Street Address</label>
             <div class="col-md-10">
                 <input asp-for="StreetAddress" class="form-control" />
                 <span asp-validation-for="StreetAddress" class="text-danger" />
@@ -41,5 +41,5 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to Product List</a>
+    <a asp-action="Index">Back to Product Listing</a>
 </div>
