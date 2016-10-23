@@ -28,7 +28,8 @@ namespace BangazonWeb.Controllers
             {
                 context.Add(customer);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                //redirect the user view to the home page by passing in 2 arguments: action("index"), controller("products")
+                return RedirectToAction("Index", "Products");
             }
             return View();
         }
