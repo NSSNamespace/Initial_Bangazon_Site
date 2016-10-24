@@ -22,23 +22,23 @@ namespace BangazonWeb.Controllers
             return View(await context.Product.ToListAsync());
         }
         [HttpGet]
-        public Create()
-        {
+        // public Create()
+        // {
 
-        }
-        [HttpPost]
-        public Create(ProductType int)
-        {
+        // }
+        // [HttpPost]
+        // public Create(ProductType int)
+        // {
 
-        }
-        public About()
-        {
+        // }
+        // public About()
+        // {
 
-        }
-        public Contact()
-        {
+        // }
+        // public Contact()
+        // {
 
-        }
+        // }
 
         public async Task<IActionResult> Detail([FromRoute]int? id)
         {

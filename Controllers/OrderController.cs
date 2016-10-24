@@ -26,16 +26,16 @@ namespace BangazonWeb.Controllers
             {
                 return NotFound();
             }
-            // var order = await context.Order 
-            //     .Include(s => s.PaymentType)
-            //     .SingleOrDefaultAsync(m => m.OrderId == id);
+            var myOrder = await context.Order 
+                .Include(s => s.PaymentType)
+                .Include (order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
+                .SingleOrDefaultAsync(m => m.OrderId == id);
 
-            var myOrder = (from order in context.Order.Include(order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
-            //   where order.LineItems.Product.Any(x => x.Product.Equals(productId))
-              select order);
+        //   var myOrder = (from order in Context.Order.Include("LineItems")
+        //       where order.Product.Any(x => x.Product.Equals(productId))
+        //       select order);
             
-            // var myOrder = (from order in Context.Order.Include("LineItems")
-            //   where order.Product.Any(x => x.Product.Equals(productId))
+            // var myOrder = (from order in context.Order.Include(order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
             //   select order);
             if (myOrder == null)
             {
@@ -48,7 +48,8 @@ namespace BangazonWeb.Controllers
 
         public IActionResult Confirm()
         {
-             ViewData["Message"] = "Order Processed Thank you for shopping at Bangazon!";
+             ViewData["Message"] = @"Order Processed! 
+             Thank you for shopping at Bangazon!";
 
             return View();
         }
