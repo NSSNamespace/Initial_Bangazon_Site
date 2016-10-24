@@ -1,0 +1,25 @@
+@model Bangazon.Models.Order 
+
+@{
+    ViewData["Title"] = "Your Cart";
+}
+@foreach (var lineitem in Model)
+{
+
+    <h2>@ViewData["Title"]</h2>
+
+
+<h3>@Html.DisplayFor(modelItem => LineItems.Product.Title)</h3>
+<!-- foreach monkeybutt in  model.LineItems  -->
+<div class="row">
+    <!--use modelItem in this instance because it's more than one thing -->
+    
+    <div class="col-md-3">@Html.DisplayFor(modelItem => LineItems.Product.Description)</div>
+    <div class="col-md-3">@Html.DisplayFor(modelItem => LineItems.Product.Price)</div>
+}
+    <div class="col-md-3"><a asp-action="Confirm">Complete Order</a></div>
+    <!--route-id = puts the product Id in the route/url -->
+    <!--asp-action maps hyperlinks to methods -->
+</div>
+
+

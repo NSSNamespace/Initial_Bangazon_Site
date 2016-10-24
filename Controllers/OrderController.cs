@@ -26,17 +26,23 @@ namespace BangazonWeb.Controllers
             {
                 return NotFound();
             }
-            var order = await context.Order 
-                .Include(s => s.PaymentType)
-                .SingleOrDefaultAsync(m => m.OrderId == id);
+            // var order = await context.Order 
+            //     .Include(s => s.PaymentType)
+            //     .SingleOrDefaultAsync(m => m.OrderId == id);
 
+            var myOrder = (from order in context.Order.Include(order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
+            //   where order.LineItems.Product.Any(x => x.Product.Equals(productId))
+              select order);
             
-            if (order == null)
+            // var myOrder = (from order in Context.Order.Include("LineItems")
+            //   where order.Product.Any(x => x.Product.Equals(productId))
+            //   select order);
+            if (myOrder == null)
             {
                 return NotFound();
             }
             
-            return View(order);
+            return View(myOrder);
         }
 
 
