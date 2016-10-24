@@ -2,58 +2,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bangazon.Models;
 using Bangazon.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BangazonWeb.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomersController : Controller
     {
         private BangazonContext context;
 
-        public CustomerController(BangazonContext ctx)
+        public CustomersController (BangazonContext ctx)
         {
             context = ctx;
         }
 
-   
-    //     public Create()
-    //     {
 
-    //     }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> New(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(customer);
+                await context.SaveChangesAsync();
+                //redirect the user view to the home page by passing in 2 arguments: action("index"), controller("products")
+                return RedirectToAction("Index", "Products");
+            }
+            return View();
+        }
 
-    //     public async Task<IActionResult> Detail([FromRoute]int? id)
-    //     {
-    //         // If no id was in the route, return 404
-    //         if (id == null)
-    //         {
-    //             return NotFound();
-    //         }
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-    //         var product = await context.Product
-    //                 .Include(s => s.Customer)
-    //                 .SingleOrDefaultAsync(m => m.ProductId == id);
-
-    //         // If product not found, return 404
-    //         if (product == null)
-    //         {
-    //             return NotFound();
-    //         }
-
-    //         return View(product);
-    //     }
-
-    //     public IActionResult Type([FromRoute]int id)
-    //     {
-    //         ViewData["Message"] = "Your contact page.";
-
-    //         return View();
-    //     }
-
-    //     public IActionResult Error()
-    //     {
-    //         return View();
-    //     }
+        public IActionResult Error()
+        {
+            return View();
+        }
     }
 }
