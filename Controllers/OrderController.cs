@@ -56,7 +56,9 @@ namespace BangazonWeb.Controllers
         public IActionResult Confirm()
         {
              ViewData["Message"] = @"Order Processed! 
-             Thank you for shopping at Bangazon!";
+        Thank you for shopping at Bangazon!";
+
+            //  something that fills out Date Completed On Order .... 
 
             return View();
         }
