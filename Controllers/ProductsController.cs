@@ -24,6 +24,7 @@ namespace BangazonWeb.Controllers
             return View(await context.Product.ToListAsync());
         }
         [HttpGet]
+
         public IActionResult Create()
         {
             ViewData["ProductTypeId"] = context.ProductType

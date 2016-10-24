@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace InitialBangazonSite.Migrations
+namespace Initial_Bangazon_Site.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Mine : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

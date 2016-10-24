@@ -26,23 +26,39 @@ namespace BangazonWeb.Controllers
             {
                 return NotFound();
             }
-            var order = await context.Order 
-                .Include(s => s.PaymentType)
-                .SingleOrDefaultAsync(m => m.OrderId == id);
+            // var myOrder = await context.Order 
+            //     .Include(s => s.PaymentType)
+            //     .Include (order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
+            //     .SingleOrDefaultAsync(m => m.OrderId == id);
+                // InvalidOperationException: The expression '[s].LineItems' passed to the Include operator could not be bound.
 
-            
-            if (order == null)
+        //   var myOrder = (from order in context.Order.Include("LineItems")
+        //       where order.Product.Any(x => x.Product.Equals(ProductId))
+        //       select order);
+
+        var result = (from products in context.Product.Include(product => product.LineItem)
+              where products.LineItem.Any(lineitem => lineitem.OrderId.Equals(id))
+              select products);
+              
+        
+        // 'ICollection<LineItem>' does not contain a definition for 'Product' and no extension method 'Product' accepting a first argument of type 'ICollection<LineItem>' could be found (are you missing a using directive or an assembly reference?)
+            // var myOrder = (from products in context.Product.Include(order => order.LineItems).ThenInclude(LineItems => LineItems.Product)
+            //   select order);
+            if (result == null)
             {
                 return NotFound();
             }
             
-            return View(order);
+            return View(result);
         }
 
 
         public IActionResult Confirm()
         {
-             ViewData["Message"] = "Order Processed Thank you for shopping at Bangazon!";
+             ViewData["Message"] = @"Order Processed! 
+        Thank you for shopping at Bangazon!";
+
+            //  something that fills out Date Completed On Order .... 
 
             return View();
         }
