@@ -11,12 +11,12 @@ namespace Bangazon.Data
         { }
 
         //these are the tables we want to interface/interact with in this context
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<Product> Product { get; set; }
-        public DbSet<Order> Order { get; set; }
-        public DbSet<PaymentType> PaymentType { get; set; }
-        public DbSet<LineItem> LineItem { get; set; }
-
+        public DbSet<Customer> Customer {get;set;}
+        public DbSet<Product> Product {get;set;}
+        public DbSet<ProductType> ProductType {get;set;}
+        public DbSet<Order> Order {get;set;}
+        public DbSet<LineItem> LineItem {get;set;}
+        public DbSet<PaymentType> PaymentType {get; set;}
         //this is where we specify exactly what the database will do when an entity is created
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
