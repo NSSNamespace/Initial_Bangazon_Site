@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Initial_Bangazon_Site.Migrations
 {
-    public partial class LizBranch : Migration
+    public partial class Mine : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,19 @@ namespace Initial_Bangazon_Site.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customer", x => x.CustomerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductType",
+                columns: table => new
+                {
+                    ProductTypeId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Label = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductType", x => x.ProductTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,6 +69,7 @@ namespace Initial_Bangazon_Site.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
                     Description = table.Column<string>(maxLength: 255, nullable: false),
                     Price = table.Column<double>(nullable: false),
+                    ProductTypeId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 55, nullable: false)
                 },
                 constraints: table =>
@@ -158,6 +172,9 @@ namespace Initial_Bangazon_Site.Migrations
         {
             migrationBuilder.DropTable(
                 name: "LineItem");
+
+            migrationBuilder.DropTable(
+                name: "ProductType");
 
             migrationBuilder.DropTable(
                 name: "Order");

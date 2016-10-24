@@ -123,6 +123,8 @@ namespace Initial_Bangazon_Site.Migrations
 
                     b.Property<double>("Price");
 
+                    b.Property<int>("ProductTypeId");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 55);
@@ -132,6 +134,20 @@ namespace Initial_Bangazon_Site.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Bangazon.Models.ProductType", b =>
+                {
+                    b.Property<int>("ProductTypeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 50);
+
+                    b.HasKey("ProductTypeId");
+
+                    b.ToTable("ProductType");
                 });
 
             modelBuilder.Entity("Bangazon.Models.LineItem", b =>

@@ -1,18 +1,18 @@
-@model IEnumerable<Bangazon.Models.Order>
+@model IEnumerable<Bangazon.Models.Product>
 
 @{
     ViewData["Title"] = "Your Cart";
 }
 
     <h2>@ViewData["Title"]</h2>
-@foreach (var lineitem in Model)
+@foreach (var products in Model)
     {
 
 
     <div class="row">
-        <h3>@Html.DisplayFor(modelItem => lineitem.LineItems.Product.Title)</h3>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => lineitem.LineItems.Product.Description)</div>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => lineitem.LineItems.Product.Price)</div>
+        <h3>@Html.DisplayFor(modelItem => products.Title)</h3>
+        <div class="col-md-3">@Html.DisplayFor(modelItem => products.Description)</div>
+        <div class="col-md-3">@Html.DisplayFor(modelItem => products.Price)</div>
     </div>
     }
 

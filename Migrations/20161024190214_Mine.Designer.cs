@@ -8,8 +8,8 @@ using Bangazon.Data;
 namespace Initial_Bangazon_Site.Migrations
 {
     [DbContext(typeof(BangazonContext))]
-    [Migration("20161024141453_LizBranch")]
-    partial class LizBranch
+    [Migration("20161024190214_Mine")]
+    partial class Mine
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,6 +124,8 @@ namespace Initial_Bangazon_Site.Migrations
 
                     b.Property<double>("Price");
 
+                    b.Property<int>("ProductTypeId");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 55);
@@ -133,6 +135,20 @@ namespace Initial_Bangazon_Site.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Bangazon.Models.ProductType", b =>
+                {
+                    b.Property<int>("ProductTypeId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 50);
+
+                    b.HasKey("ProductTypeId");
+
+                    b.ToTable("ProductType");
                 });
 
             modelBuilder.Entity("Bangazon.Models.LineItem", b =>
