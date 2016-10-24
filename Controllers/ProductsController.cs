@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Bangazon.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Bangazon.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BangazonWeb.Controllers
 {
@@ -21,38 +23,38 @@ namespace BangazonWeb.Controllers
         {
             return View(await context.Product.ToListAsync());
         }
-        // [HttpGet]
-        // public IActionResult Create()
-        // {
-        //     ViewData["ProductTypeId"] = context.ProductType
-        //                                .OrderBy(l => l.Label)
-        //                                .AsEnumerable()
-        //                                .Select(li => new SelectListItem { 
-        //                                    Text = li.Label,
-        //                                    Value = li.ProductTypeId.ToString()
-        //                                 });
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewData["ProductTypeId"] = context.ProductType
+                                       .OrderBy(l => l.Label)
+                                       .AsEnumerable()
+                                       .Select(li => new SelectListItem { 
+                                           Text = li.Label,
+                                           Value = li.ProductTypeId.ToString()
+                                        });
 
-        //     ViewData["CustomerId"] = context.Customer
-        //                                .OrderBy(l => l.LastName)
-        //                                .AsEnumerable()
-        //                                .Select(li => new SelectListItem { 
-        //                                    Text = $"{li.FirstName} {li.LastName}",
-        //                                    Value = li.CustomerId.ToString()
-        //                                 });
-        //     return View(); 
-        // }
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create(Product product)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         context.Add(product);
-        //         await context.SaveChangesAsync();
-        //         return RedirectToAction("Index");
-        //     }
-        //     return View(product);
-        // }
+            ViewData["CustomerId"] = context.Customer
+                                       .OrderBy(l => l.LastName)
+                                       .AsEnumerable()
+                                       .Select(li => new SelectListItem { 
+                                           Text = $"{li.FirstName} {li.LastName}",
+                                           Value = li.CustomerId.ToString()
+                                        });
+            return View(); 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(product);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
         public async Task<IActionResult> Detail([FromRoute]int? id)
         {
             // If no id was in the route, return 404
