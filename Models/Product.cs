@@ -23,6 +23,9 @@ namespace Bangazon.Models
 
     [Required]
     public double Price { get; set; }
+  
+    [Required]
+    public int ProductTypeId { get; set; }
 
     [Required]
     public int CustomerId { get; set; }
