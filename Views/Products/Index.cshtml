@@ -1,4 +1,5 @@
 @model IEnumerable<Bangazon.Models.Product>
+@using Bangazon.Models;
 
 @{
     ViewData["Title"] = "Products";
@@ -6,13 +7,14 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@foreach (var product in Model)
+@foreach (Product item in Model)
 {
     <div class="row">
-        <div class="col-md-2">@Html.DisplayFor(modelItem => product.Price)</div>
-        <div class="col-md-2">
-        <div class="col-md-6">@Html.DisplayFor(modelItem => product.Description)</div>            
-            <a asp-action="Detail" asp-route-id="@product.ProductId">Details</a>
+        <div class="col-md-3">@Html.DisplayFor(modelItem => item.Title)</div>
+        <div class="col-md-3">@Html.DisplayFor(modelItem => item.Price)</div>
+        <div class="col-md-3">@Html.DisplayFor(modelItem => item.Description)</div>
+        <div class="col-md-3">
+            <a asp-action="Detail" asp-route-id="@item.ProductId">Details</a>
         </div>
     </div>
 }
