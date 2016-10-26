@@ -22,9 +22,10 @@ namespace Bangazon.Models
     public string Title { get; set; }
 
     [Required]
-    public double Price { get; set; }
+    public decimal Price { get; set; }
   
     [Required]
+    [Display(Name="Category")]
     public int ProductTypeId { get; set; }
 
     [Required]
