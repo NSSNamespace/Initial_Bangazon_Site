@@ -19,13 +19,16 @@ namespace Bangazon.Models
 
     [Required]
     [StringLength(55)]
+    [DisplayAttribute(Name="Name")]
     public string Title { get; set; }
+
+  
 
     [Required]
     public decimal Price { get; set; }
   
     [Required]
-    [Display(Name="Category")]
+    [DisplayAttribute(Name="Category")]
     public int ProductTypeId { get; set; }
 
     [Required]
