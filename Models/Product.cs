@@ -19,12 +19,15 @@ namespace Bangazon.Models
 
     [Required]
     [StringLength(55)]
+    [DisplayAttribute(Name="Name")]
     public string Title { get; set; }
 
     [Required]
+    
     public double Price { get; set; }
   
     [Required]
+    [DisplayAttribute(Name="Category")]
     public int ProductTypeId { get; set; }
 
     [Required]
