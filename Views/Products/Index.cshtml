@@ -10,7 +10,7 @@
 @foreach (Product item in Model)
 { 
         <div class="row">
-            <a asp-action="Detail" asp-route-id="@item.ProductId"><div class="col-md-2">@Html.DisplayFor(modelItem => item.Title)</div></a>
+            <div class="col-md-2"><a asp-action="Detail" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a></div>
             <div class="col-md-4 priceCol">$@Html.DisplayFor(modelItem => item.Price)</div>
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.Description)</div>
         </div>
