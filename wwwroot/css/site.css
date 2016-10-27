@@ -10,11 +10,6 @@ body {
     padding-right: 15px;
 }
 
-
-.priceCol {
-    text-align: center;
-}
-
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
@@ -40,4 +35,14 @@ textarea {
   .carousel-caption {
     display: none
   }
+}
+
+/* Left and right align aren't aesthetically pleasing */
+.priceCol {
+    text-align: center;
+}
+
+/* Spacing between product rows, so their descpriptions don't run together */
+.productRow {
+    margin-bottom: 15px;
 }
