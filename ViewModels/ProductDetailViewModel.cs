@@ -10,7 +10,7 @@ Methods: ProductDetail class custom constructor, which accepts BangazonContext a
 
 */
 
-namespace BangazonWeb.ViewModels
+namespace Bangazon.ViewModels
 {
     //create ProductDetailViewModel class, which inherits from BaseViewModel, and therefore contains the dropdown menu with customer name selected
   public class ProductDetail : BaseViewModel

@@ -19,7 +19,7 @@ using Microsoft.EntityFrameworkCore;
      *Error() - returns the Error View
      */
 
-namespace BangazonWeb.Controllers
+namespace Bangazon.Controllers
 {
     public class CustomersController : Controller
     {
