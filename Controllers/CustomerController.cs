@@ -39,7 +39,7 @@ namespace BangazonWeb.Controllers
             return PartialView(model);
         }
 
-        //Annotation on Line 31 indicates that the following code contains the logic for explicitly responding to a post SENT from the front-end 
+    
         [HttpPost]
         public IActionResult Activate([FromBody]int CustomerId)
 
@@ -52,8 +52,7 @@ namespace BangazonWeb.Controllers
                 return NotFound();
             }
 
-            //Line 36 sets the property of customer on the current instance of the ActiveCustomer class. 
-            //INSTANCE RETURNS AN **OBJECT** IN MEMORY, RATHER THAN A PROPERTY ON THE CLASS OF ACTIVE CUSTOMER
+            //create a new instance of the ActiveCustomer class and assign the selected customer to the .Customer property on that instance
             ActiveCustomer.instance.Customer = customer;
             string json = "{'result': 'true'}";
             return new ContentResult { Content = json, ContentType = "application/json" };
