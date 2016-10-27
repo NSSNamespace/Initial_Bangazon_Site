@@ -31,6 +31,7 @@ namespace BangazonWeb.Controllers
             context = ctx;
         }
 
+        //Create a new instance of the MenuViewModel class and pass it db context, which is then used to return the partial view of the dropdown file
         public ActionResult Menu()
         {
             MenuViewModel model = new MenuViewModel(context);
@@ -41,7 +42,9 @@ namespace BangazonWeb.Controllers
         //Annotation on Line 31 indicates that the following code contains the logic for explicitly responding to a post SENT from the front-end 
         [HttpPost]
         public IActionResult Activate([FromBody]int CustomerId)
+
         {
+            //cycle through the existing customers table in the database and select the customerId that matches the argument
             var customer = context.Customer.SingleOrDefault(c => c.CustomerId == CustomerId);
 
             if (customer == null)
