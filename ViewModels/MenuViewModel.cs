@@ -1,6 +1,5 @@
 using Bangazon.Models;
 using Bangazon.Data;
-using Bangazon.ViewModels;
 
 namespace Bangazon.ViewModels
 {
