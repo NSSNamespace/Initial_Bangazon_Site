@@ -2,7 +2,7 @@ using Bangazon.Models;
 using Bangazon.Data;
 using Bangazon.ViewModels;
 
-namespace BangazonWeb.ViewModels
+namespace Bangazon.ViewModels
 {
 //    Purpose: To have a MenuViewModel that will display the Active Customer's First and last name
 //             in the navbar. This viewmodel inherits from the BaseViewModel. 
