@@ -67,6 +67,8 @@ namespace BangazonWeb
 
             app.UseStaticFiles();
 
+            DbInitializer.Initialize(app.ApplicationServices);
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
