@@ -12,9 +12,9 @@ namespace Bangazon.ViewModels
     public IEnumerable<SelectListItem> CustomerId { get; set; }
     private BangazonContext context;
 
-    // ActiveCustomer.Instance instantiates an instance of ActiveCustomer. This instatiation has
+    // ActiveCustomer.instance instantiates an instance of ActiveCustomer. This instatiation has
     // a property of Customer on it. That's what we assign to ActiveCustomer. 
-    private ActiveCustomer singleton = ActiveCustomer.Instance;
+    private ActiveCustomer singleton = ActiveCustomer.instance;
     public Customer ChosenCustomer 
     {
       get
