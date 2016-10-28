@@ -28,18 +28,12 @@ namespace Bangazon.Controllers
         //Method: creates async method for two purposes: extract the Customer table from current context for extraction into the dropdown menu and return the Index view of complete product list
         public async Task<IActionResult> Index()
         {
+            // Create new instance of the view model
+            ProductList model = new ProductList(context);
 
-            ViewData["CustomerId"] = context.Customer
-                                       .OrderBy(l => l.LastName)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem
-                                       {
-                                           Text = $"{li.FirstName} {li.LastName}",
-                                           Value = li.CustomerId.ToString()
-                                       });
-
-            return View(await context.Product.ToListAsync());
-
+            // Set the properties of the view model
+            model.Products = await context.Product.ToListAsync(); 
+            return View(model);
         }
 
         //Method: purpose is to create new instance of MenuViewModel, taking the current context as an argument and returning the PartialView for injection as in ActiveCustomerComponent
