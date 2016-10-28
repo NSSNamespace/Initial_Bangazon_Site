@@ -9,7 +9,7 @@ using Bangazon.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Bangazon.ViewModels;
 
-namespace BangazonWeb.Controllers
+namespace Bangazon.Controllers
 {
     public class ProductsController : Controller
     {
@@ -95,7 +95,7 @@ namespace BangazonWeb.Controllers
             // Create a new instance of the ProductDetail ViewModel and pass it the existing BangazonContext (current db session) as an argument in order to extract the product whose id matches the argument passed in¸
             ProductDetail model = new ProductDetail(context);
 
-            // Set the `Product` property of the view model and include the product's seller (i.e., its .Customer property)
+            // Set the `Product` property of the view model and include the product's seller (i.e., its .Customer property, accessed via Include, which traverses Product table and selects the Customer FK)
             model.Product = await context.Product
                     .Include(prod => prod.Customer)
                     .SingleOrDefaultAsync(prod => prod.ProductId == id);
