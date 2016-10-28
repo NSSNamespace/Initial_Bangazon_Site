@@ -7,7 +7,6 @@ Author: Liz Sanger
 Purpose: Aggregate data for display on ProductDetailView, including customerId dropdown menu inherited from BaseViewModel class. 
 Methods: ProductDetail class custom constructor, which accepts BangazonContext as an argument
 
-
 */
 
 namespace Bangazon.ViewModels
