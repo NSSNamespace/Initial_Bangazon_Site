@@ -148,11 +148,22 @@ namespace Bangazon.Controllers
         {
             ViewData["Message"] = "Here is the type INSERT TYPE.";
 
+            
+
             return View();
         }
         public IActionResult Types()
         {
             ViewData["Message"] = "Here are products of INSERT TYPE here";
+            
+            ViewData["CustomerId"] = context.Customer
+                                       .OrderBy(l => l.LastName)
+                                       .AsEnumerable()
+                                       .Select(li => new SelectListItem
+                                       {
+                                           Text = $"{li.FirstName} {li.LastName}",
+                                           Value = li.CustomerId.ToString()
+                                       });
             return View();
         }
 
