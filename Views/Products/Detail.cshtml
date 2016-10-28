@@ -1,0 +1,24 @@
+@model Bangazon.ViewModels.ProductDetail
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h2>@Html.DisplayFor(model => model.Product.Title)</h2>
+<h3>@Model.ChosenCustomer.FirstName</h3>
+
+<div class="row">
+    <div class="col-md-3">@Html.DisplayFor(model => model.Product.Description)</div>
+    <div class="col-md-3">@Html.DisplayFor(model => model.Product.Price)</div>
+    <div class="col-md-3">@Html.DisplayFor(model => model.Product.DateCreated)</div>
+    <div class="col-md-3"><a asp-action="Purchase" asp-route-id="@Model.Product.ProductId">Purchase</a></div>
+</div>
+
+<div>
+    Seller: @Html.DisplayFor(model => model.Product.Customer.FirstName) 
+    @Html.DisplayFor(model => model.Product.Customer.LastName)
+</div>
+
+<div>
+    &lt;&lt; <a asp-action="Index">Back to List</a>
+</div>

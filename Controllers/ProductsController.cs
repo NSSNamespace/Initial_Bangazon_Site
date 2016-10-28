@@ -72,6 +72,8 @@ namespace BangazonWeb.Controllers
         //from the submitted form. The second decoration checks to see that all required form fields have been completed.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+        //QUESTION: which IActionResult (contract representing the result of an action method) is represented in the async Task below? In other words, to which action method does this task respond? If it is the Create method that accepts a Product as a parameter, is it accurate to say that <IActionResult> represents the View(product) returned?
         public async Task<IActionResult> Create(Product product)
         {
             //This check is to make sure that the data being sumitted to the table in the database is of the same structure as the data submitted
