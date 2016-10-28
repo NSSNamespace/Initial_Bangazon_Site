@@ -9,7 +9,7 @@ namespace Bangazon.ViewModels
   public class BaseViewModel
   {
     //   this is the selectItem list that will make up the dropdown on each page. 
-    public IEnumerable<SelectListItem> CustomerId { get; set; }
+    public List<SelectListItem> CustomerId { get; set; }
     private BangazonContext context;
 
     // ActiveCustomer.instance instantiates an instance of ActiveCustomer. This instatiation has
@@ -46,17 +46,25 @@ namespace Bangazon.ViewModels
 
     // this is a custom constructor for BaseViewModel. We need BaseViewModel to be able to access
     // the customer dropdown on all of our pages 
-    public BaseViewModel(BangazonContext ctx)
+
+
+     public BaseViewModel(BangazonContext ctx)
     {
         context = ctx;
+
         this.CustomerId = context.Customer
             .OrderBy(l => l.LastName)
             .AsEnumerable()
             .Select(li => new SelectListItem { 
                 Text = $"{li.FirstName} {li.LastName}",
                 Value = li.CustomerId.ToString()
+            }).ToList();
+
+        this.CustomerId.Insert(0, new SelectListItem { 
+                Text = "Choose customer...",
+                Value = "0"
             });
-    }
+    }  
     public BaseViewModel() { }
   }
 }
