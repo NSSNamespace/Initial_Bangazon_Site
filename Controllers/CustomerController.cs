@@ -38,7 +38,6 @@ namespace Bangazon.Controllers
 
             return PartialView(model);
         }
-
     
         [HttpPost]
         public IActionResult Activate([FromBody]int CustomerId)
