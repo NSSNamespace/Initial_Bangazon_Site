@@ -48,7 +48,6 @@ namespace BangazonWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        //QUESTION: which IActionResult (contract representing the result of an action method) is represented in the async Task below? In other words, to which action method does this task respond? If it is the Create method that accepts a Product as a parameter, is it accurate to say that <IActionResult> represents the View(product) returned?
         public async Task<IActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
@@ -59,6 +58,9 @@ namespace BangazonWeb.Controllers
             }
             return View(product);
         }
+
+        //QUESTION: which IActionResult (contract representing the result of an action method) is represented in the async Task below? In other words, to which action method does this task respond? If it is the Create method that accepts a Product as a parameter, is it accurate to say that <IActionResult> represents the View(product) returned?
+        
         // public async Task<IActionResult> Detail([FromRoute]int? id)
         // {
         //     // If no id was in the route, return 404
@@ -80,27 +82,31 @@ namespace BangazonWeb.Controllers
         //     return View(product);
         // }
 
+        //Creates an async method called Detail that returns a value via Task<IActionResult> and accepts an argument of type int (the customerId)
+
          public async Task<IActionResult> Detail([FromRoute]int? id)
         {
-            // If no id was in the route, return 404
+           //throw a 404(NotFound) error if method is called w/o id in route
             if (id == null)
             {
                 return NotFound();
             }
 
-            // Create new instance of view model
+            // Create a new instance of the ProductDetail ViewModel and pass it the existing BangazonContext (current db session) as an argument in order to extract the product whose id matches the argument passed in¸
             ProductDetail model = new ProductDetail(context);
 
-            // Set the `Product` property of the view model
+            // Set the `Product` property of the view model and include the product's seller (i.e., its .Customer property)
             model.Product = await context.Product
                     .Include(prod => prod.Customer)
                     .SingleOrDefaultAsync(prod => prod.ProductId == id);
 
-            // If product not found, return 404
+            // If no matching product found, return 404 error
             if (model.Product == null)
             {
                 return NotFound();
             }
+
+            //Otherwise, return the ProductDetail view with the ProductDetailViewModel passed in as argument for rendering that specific product on the page
 
             return View(model); 
         }
