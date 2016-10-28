@@ -148,23 +148,23 @@ namespace Bangazon.Controllers
         {
             ViewData["Message"] = "Here is the type INSERT TYPE.";
 
-            
-
             return View();
         }
-        public IActionResult Types()
+        public async Task<IActionResult> Types()
         {
-            ViewData["Message"] = "Here are products of INSERT TYPE here";
+            ProductTypesViewModel model = new ProductTypesViewModel(context);
+
+            model.ProductTypes = await context.ProductType.ToListAsync(); 
+            return View(model);
             
-            ViewData["CustomerId"] = context.Customer
-                                       .OrderBy(l => l.LastName)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem
-                                       {
-                                           Text = $"{li.FirstName} {li.LastName}",
-                                           Value = li.CustomerId.ToString()
-                                       });
-            return View();
+            // ViewData["CustomerId"] = context.Customer
+            //                            .OrderBy(l => l.LastName)
+            //                            .AsEnumerable()
+            //                            .Select(li => new SelectListItem
+            //                            {
+            //                                Text = $"{li.FirstName} {li.LastName}",
+            //                                Value = li.CustomerId.ToString()
+            //                            });
         }
 
         public IActionResult Error()

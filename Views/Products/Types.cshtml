@@ -1,7 +1,14 @@
-@{
-    ViewData["Title"] = "About";
-}
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
+@model Bangazon.ViewModels.ProductTypesViewModel
 
-<p>Use this area to provide additional information.</p>
+
+@*
+@{
+    ViewData["Title"] = "Product Type Listing";
+}
+    <h2>@ViewData["Title"]</h2>
+    *@
+
+    @foreach (var type in Model.ProductTypes)
+    {
+        <div class="col-md-6"><a asp-controller="Products" asp-action="Types" asp-route-id="@type.ProductTypeId">@Html.DisplayFor(modelItem => type.Label)</a></div>
+    }
