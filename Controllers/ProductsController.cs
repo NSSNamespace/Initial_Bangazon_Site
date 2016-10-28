@@ -51,24 +51,27 @@ namespace Bangazon.Controllers
 
         public IActionResult Create()
         {
-            ViewData["ProductTypeId"] = context.ProductType
-                                       .OrderBy(l => l.Label)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem
-                                       {
-                                           Text = li.Label,
-                                           Value = li.ProductTypeId.ToString()
-                                       });
+            // ViewData["ProductTypeId"] = context.ProductType
+            //                            .OrderBy(l => l.Label)
+            //                            .AsEnumerable()
+            //                            .Select(li => new SelectListItem
+            //                            {
+            //                                Text = li.Label,
+            //                                Value = li.ProductTypeId.ToString()
+            //                            });
 
-            ViewData["CustomerId"] = context.Customer
-                                       .OrderBy(l => l.LastName)
-                                       .AsEnumerable()
-                                       .Select(li => new SelectListItem
-                                       {
-                                           Text = $"{li.FirstName} {li.LastName}",
-                                           Value = li.CustomerId.ToString()
-                                       });
-            return View();
+            // ViewData["CustomerId"] = context.Customer
+            //                            .OrderBy(l => l.LastName)
+            //                            .AsEnumerable()
+            //                            .Select(li => new SelectListItem
+            //                            {
+            //                                Text = $"{li.FirstName} {li.LastName}",
+            //                                Value = li.CustomerId.ToString()
+            //                            });
+
+            CreateProductViewModel model = new CreateProductViewModel(context);
+
+            return View(model);
         }
 
         //Method: Purpose is to send the customer's product to the database

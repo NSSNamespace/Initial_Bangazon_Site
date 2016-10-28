@@ -1,4 +1,4 @@
-@model Bangazon.Models.Product
+@model Bangazon.ViewModels.CreateProductViewModel 
 
 @{
     ViewData["Title"] = "Sell A Product";
@@ -11,31 +11,31 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <label asp-for="Product.Title" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger" />
+                <input asp-for="Product.Title" class="form-control" />
+                <span asp-validation-for="Product.Title" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
+            <label asp-for="Product.Description" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger" />
+                <input asp-for="Product.Description" class="form-control" />
+                <span asp-validation-for="Product.Description" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Price" class="col-md-2 control-label"></label>
+            <label asp-for="Product.Price" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger" />
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ProductTypeId" class="col-md-2 control-label"></label>
+            <label asp-for="Product.ProductTypeId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 @Html.DropDownList("ProductTypeId")
-                <span asp-validation-for="ProductTypeId" class="text-danger" />
+                <span asp-validation-for="Product.ProductTypeId" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
