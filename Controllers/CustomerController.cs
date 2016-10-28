@@ -20,6 +20,17 @@ namespace BangazonWeb.Controllers
         }
 
 
+<<<<<<< Updated upstream
+=======
+            return PartialView(model);
+        }
+        [HttpGet]
+        public IActionResult Create([FromBody] CustomerId)
+        {
+
+        }
+    
+>>>>>>> Stashed changes
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> New(Customer customer)
