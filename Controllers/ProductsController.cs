@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Bangazon.ViewModels;
 
 namespace BangazonWeb.Controllers
 {
@@ -58,7 +59,28 @@ namespace BangazonWeb.Controllers
             }
             return View(product);
         }
-        public async Task<IActionResult> Detail([FromRoute]int? id)
+        // public async Task<IActionResult> Detail([FromRoute]int? id)
+        // {
+        //     // If no id was in the route, return 404
+        //     if (id == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     var product = await context.Product
+        //             .Include(s => s.Customer)
+        //             .SingleOrDefaultAsync(m => m.ProductId == id);
+
+        //     // If product not found, return 404
+        //     if (product == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return View(product);
+        // }
+
+         public async Task<IActionResult> Detail([FromRoute]int? id)
         {
             // If no id was in the route, return 404
             if (id == null)
@@ -66,19 +88,23 @@ namespace BangazonWeb.Controllers
                 return NotFound();
             }
 
-            var product = await context.Product
-                    .Include(s => s.Customer)
-                    .SingleOrDefaultAsync(m => m.ProductId == id);
+            // Create new instance of view model
+            ProductDetail model = new ProductDetail(context);
+
+            // Set the `Product` property of the view model
+            model.Product = await context.Product
+                    .Include(prod => prod.Customer)
+                    .SingleOrDefaultAsync(prod => prod.ProductId == id);
 
             // If product not found, return 404
-            if (product == null)
+            if (model.Product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(model); 
         }
-
+        
         public IActionResult Type([FromRoute]int id)
         {
             ViewData["Message"] = "Here is the type INSERT TYPE.";
