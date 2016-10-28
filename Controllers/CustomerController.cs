@@ -39,6 +39,13 @@ namespace Bangazon.Controllers
             return PartialView(model);
         }
 
+           public IActionResult Create()
+        {
+            CreateCustomerViewModel model = new CreateCustomerViewModel(context);
+
+            return View(model);
+        }
+
     
         [HttpPost]
         public IActionResult Activate([FromBody]int CustomerId)
