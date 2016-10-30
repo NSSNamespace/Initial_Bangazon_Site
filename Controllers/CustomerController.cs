@@ -53,13 +53,10 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         //Overload the Create() method with an async Task that sends a new customer
         public async Task<IActionResult>Create(Customer customer)
-        {
-           
+        {     
                 context.Add(customer);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index", "Products");
-      
-            
         }
 
     
