@@ -10,5 +10,7 @@
 
     @foreach (var type in Model.ProductTypes)
     {
-        <div class="col-md-6"><a asp-controller="Products" asp-action="Types" asp-route-id="@type.ProductTypeId">@Html.DisplayFor(modelItem => type.Label)</a></div>
+        <div class="typesList">
+            <div class="col-md-12"><a asp-controller="Products" asp-action="Types" asp-route-id="@type.ProductTypeId">@Html.DisplayFor(modelItem => type.Label)</a></div>
+        </div>
     }
