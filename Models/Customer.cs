@@ -21,7 +21,7 @@ namespace Bangazon.Models
     public string FirstName { get; set; }
 
     [Required]
-      [DisplayAttribute(Name="Last Name")]
+    [DisplayAttribute(Name="Last Name")]
     public string LastName { get; set; }
 
     [Required]
