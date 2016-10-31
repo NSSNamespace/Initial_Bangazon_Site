@@ -6,33 +6,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bangazon.ViewModels
 {
+  //Class from which all other view models inherit.
   public class BaseViewModel
   {
-    //   this is the selectItem list that will make up the dropdown on each page. 
+    //This is the selectItem list that will make up the dropdown on each page. 
     public List<SelectListItem> CustomerId { get; set; }
     private BangazonContext context;
 
-    // ActiveCustomer.instance instantiates an instance of ActiveCustomer. This instatiation has
-    // a property of Customer on it. That's what we assign to ActiveCustomer. 
+    //ActiveCustomer.instance instantiates an instance of ActiveCustomer. This instatiation has a property of Customer on it. That's what we assign to ActiveCustomer. 
     private ActiveCustomer singleton = ActiveCustomer.instance;
     public Customer ChosenCustomer 
     {
       get
       {
-        // Get the current value of the customer property of our singleton
+        //Get the current value of the customer property of our singleton
         Customer customer = singleton.Customer;
 
-        // If no customer has been chosen yet, it's value will be null
+        //If no customer has been chosen yet, its value will be null
         if (customer == null)
         {
-          // Return fake customer for now
+          //Return fake customer for now
           return new Customer () {
             FirstName = "Create",
             LastName = "Account"
           };
         }
 
-        // If there is a customer chosen, return it
+        //If there is a customer chosen, return it
         return customer;
       }
       set
@@ -44,14 +44,10 @@ namespace Bangazon.ViewModels
       }
     }
 
-    // this is a custom constructor for BaseViewModel. We need BaseViewModel to be able to access
-    // the customer dropdown on all of our pages 
-
-
+    //This is a custom constructor for BaseViewModel. We need BaseViewModel to be able to access the customer dropdown on all of our pages. It takes an argument of BangazonContext which represents a session with the database.
      public BaseViewModel(BangazonContext ctx)
     {
         context = ctx;
-
         this.CustomerId = context.Customer
             .OrderBy(l => l.LastName)
             .AsEnumerable()

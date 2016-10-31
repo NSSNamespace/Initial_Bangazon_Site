@@ -29,14 +29,14 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> Index()
         {
             // Create new instance of the view model
-            ProductList model = new ProductList(context);
+            ProductListViewModel model = new ProductListViewModel(context);
 
             // Set the properties of the view model
             model.Products = await context.Product.ToListAsync(); 
             return View(model);
         }
 
-        //Method: purpose is to create new instance of MenuViewModel, taking the current context as an argument and returning the PartialView for injection as in ActiveCustomerComponent
+        //Method: purpose is to create new instance of MenuViewModel, taking the current context as an argument and returning the PartialView for injection in ActiveCustomerComponent
 
         public ActionResult Menu()
         {
@@ -45,7 +45,7 @@ namespace Bangazon.Controllers
             return PartialView(model);
         }
 
-        //Method: purpose is to create Products/Create view that renders both product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
+        //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
         [HttpGet]
         public IActionResult Create()
@@ -54,14 +54,18 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
-        //Method: Purpose is to send the customer's product to the database
+        //Method: Purpose is to send the customer's product to the database and then redirects the user to the homepage (AllProductsView)
         [HttpPost]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> Create(Product product)
         {
+            //This creates a new variable to hold our current instance of the ActiveCustomer class and then sets the active customer's id to the CustomerId property on the product being created so that a valid model is sent to the database
             var customer = ActiveCustomer.instance.Customer;
             product.CustomerId = customer.CustomerId;
+
+            //This creates a new instance of the CreateProductViewModel so that we can return the same view (i.e., the existing product info user has entered into the form) if the model state is invalid when user tries to create product
+            CreateProductViewModel model = new CreateProductViewModel(context); 
             
             if (ModelState.IsValid)
             {
@@ -69,8 +73,10 @@ namespace Bangazon.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(model);
         }
+
+        //Method: Purpose is to route user to the detail view on a selected product. Accepts an argument (passed in through the route) of the product's primary key (id)
 
         public async Task<IActionResult> Detail([FromRoute]int? id)
         {
@@ -80,8 +86,8 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
-            // Create a new instance of the ProductDetail ViewModel and pass it the existing BangazonContext (current db session) as an argument in order to extract the product whose id matches the argument passed in¸
-            ProductDetail model = new ProductDetail(context);
+            // Create a new instance of the ProductDetailViewModel and pass it the existing BangazonContext (current db session) as an argument in order to extract the product whose id matches the argument passed in¸
+            ProductDetailViewModel model = new ProductDetailViewModel(context);
 
             // Set the `Product` property of the view model and include the product's seller (i.e., its .Customer property, accessed via Include, which traverses Product table and selects the Customer FK)
             model.Product = await context.Product
@@ -94,34 +100,29 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
-            //Otherwise, return the ProductDetail view with the ProductDetailViewModel passed in as argument for rendering that specific product on the page
+            //Otherwise, return the ProductDetailViewModel view with the ProductDetailViewModel passed in as argument for rendering that specific product on the page
 
             return View(model);
         }
 
+        //Method (to be developed): Purpose is to return a view that displays all the products of one category. Accepts one argument, passed in through route, of ProductTypeId. Currently contains placeholder text
         public IActionResult Type([FromRoute]int id)
         {
             ViewData["Message"] = "Here is the type INSERT TYPE.";
 
             return View();
         }
+
+        //Method: Purpose is to render the ProductTypes view, which displays all product categories
         public async Task<IActionResult> Types()
         {
-            ProductTypesViewModel model = new ProductTypesViewModel(context);
+            //This creates a new instance of the ProductTypesViewModel and passes in the current session with the database (context) as an argument
 
+            ProductTypesViewModel model = new ProductTypesViewModel(context);
             model.ProductTypes = await context.ProductType.ToListAsync(); 
             return View(model);
-            
-            // ViewData["CustomerId"] = context.Customer
-            //                            .OrderBy(l => l.LastName)
-            //                            .AsEnumerable()
-            //                            .Select(li => new SelectListItem
-            //                            {
-            //                                Text = $"{li.FirstName} {li.LastName}",
-            //                                Value = li.CustomerId.ToString()
-            //                            });
         }
-
+        //Method: Purpose is to return the Error view
         public IActionResult Error()
         {
             return View();
