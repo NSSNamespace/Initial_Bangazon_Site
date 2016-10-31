@@ -48,29 +48,9 @@ namespace Bangazon.Controllers
         //Method: purpose is to create Products/Create view that renders both product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
         [HttpGet]
-
         public IActionResult Create()
         {
-            // ViewData["ProductTypeId"] = context.ProductType
-            //                            .OrderBy(l => l.Label)
-            //                            .AsEnumerable()
-            //                            .Select(li => new SelectListItem
-            //                            {
-            //                                Text = li.Label,
-            //                                Value = li.ProductTypeId.ToString()
-            //                            });
-
-            // ViewData["CustomerId"] = context.Customer
-            //                            .OrderBy(l => l.LastName)
-            //                            .AsEnumerable()
-            //                            .Select(li => new SelectListItem
-            //                            {
-            //                                Text = $"{li.FirstName} {li.LastName}",
-            //                                Value = li.CustomerId.ToString()
-            //                            });
-
             CreateProductViewModel model = new CreateProductViewModel(context);
-
             return View(model);
         }
 
@@ -80,6 +60,9 @@ namespace Bangazon.Controllers
 
         public async Task<IActionResult> Create(Product product)
         {
+            var customer = ActiveCustomer.instance.Customer;
+            product.CustomerId = customer.CustomerId;
+            
             if (ModelState.IsValid)
             {
                 context.Add(product);
@@ -88,31 +71,6 @@ namespace Bangazon.Controllers
             }
             return View(product);
         }
-
-        //QUESTION: which IActionResult (contract representing the result of an action method) is represented in the async Task below? In other words, to which action method does this task respond? If it is the Create method that accepts a Product as a parameter, is it accurate to say that <IActionResult> represents the View(product) returned?
-
-        // public async Task<IActionResult> Detail([FromRoute]int? id)
-        // {
-        //     // If no id was in the route, return 404
-        //     if (id == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var product = await context.Product
-        //             .Include(s => s.Customer)
-        //             .SingleOrDefaultAsync(m => m.ProductId == id);
-
-        //     // If product not found, return 404
-        //     if (product == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(product);
-        // }
-
-        //Creates an async method called Detail that returns a value via Task<IActionResult> and accepts an argument of type int (the customerId)
 
         public async Task<IActionResult> Detail([FromRoute]int? id)
         {
