@@ -46,3 +46,12 @@ textarea {
 .productRow {
     margin-bottom: 15px;
 }
+
+.typesList {
+    margin-top: 4%; 
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+}
