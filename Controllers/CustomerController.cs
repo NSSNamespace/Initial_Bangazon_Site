@@ -61,12 +61,12 @@ namespace Bangazon.Controllers
 
     
         [HttpPost]
-        public IActionResult Activate([FromBody]int CustomerId)
+        public IActionResult Activate([FromRoute]int id)
 
         {
             //cycle through the existing customers table in the database and select the customerId that matches the argument
-            var customer = context.Customer.SingleOrDefault(c => c.CustomerId == CustomerId);
-
+            var customer = context.Customer.SingleOrDefault(c => c.CustomerId == id);
+            
             if (customer == null)
             {
                 return NotFound();
