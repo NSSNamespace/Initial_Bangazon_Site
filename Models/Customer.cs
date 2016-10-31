@@ -17,13 +17,15 @@ namespace Bangazon.Models
     public DateTime DateCreated {get;set;}
 
     [Required]
-    
+    [DisplayAttribute(Name="First Name")]
     public string FirstName { get; set; }
 
     [Required]
+      [DisplayAttribute(Name="Last Name")]
     public string LastName { get; set; }
 
     [Required]
+    [DisplayAttribute(Name="Street Address")]
     public string StreetAddress { get; set; }
     
     public ICollection<Product> Products;
