@@ -74,8 +74,10 @@ namespace Bangazon.Controllers
 
             //create a new instance of the ActiveCustomer class and assign the selected customer to the .Customer property on that instance
             ActiveCustomer.instance.Customer = customer;
-            string json = "{'result': 'true'}";
-            return new ContentResult { Content = json, ContentType = "application/json" };
+            // string json = "{'result': 'true'}";
+            // return new ContentResult { Content = json, ContentType = "application/json" };
+
+            return Json(customer);
         }
 
         public IActionResult Error()
