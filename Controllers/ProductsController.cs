@@ -36,15 +36,6 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
-        //Method: purpose is to create new instance of MenuViewModel, taking the current context as an argument and returning the PartialView for injection in ActiveCustomerComponent
-
-        public ActionResult Menu()
-        {
-            MenuViewModel model = new MenuViewModel(context);
-
-            return PartialView(model);
-        }
-
         //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
         [HttpGet]
