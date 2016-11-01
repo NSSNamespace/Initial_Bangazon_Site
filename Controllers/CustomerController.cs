@@ -29,14 +29,6 @@ namespace Bangazon.Controllers
             context = ctx;
         }
 
-        //Create a new instance of the MenuViewModel class and pass it db context, which is then used to return the partial view of the dropdown file
-        public ActionResult Menu()
-        {
-            MenuViewModel model = new MenuViewModel(context);
-
-            return PartialView(model);
-        }
-
         //Create a new instance of the CreateCustomerViewModel and return the Customer/Create view
            public IActionResult Create()
         {
