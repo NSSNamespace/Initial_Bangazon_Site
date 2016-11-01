@@ -32,7 +32,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Products" asp-action="Types">Categories</a></li>
-                    <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>                    
+                    @if (@Model.ChosenCustomer.FirstName != "Create" && @Model.ChosenCustomer.LastName != "Account")
+                    {
+                        <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>
+                    }              
                 </ul>
                 @{ Html.RenderPartial("ActiveCustomerComponent"); }
             </div>
