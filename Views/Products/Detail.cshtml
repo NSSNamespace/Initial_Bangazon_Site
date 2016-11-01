@@ -5,7 +5,11 @@
 }
 
 <h2>@Html.DisplayFor(model => model.Product.Title)</h2>
-<h3>@Model.ChosenCustomer.FirstName</h3>
+ @if (@Model.ChosenCustomer.FirstName != "Create" && @Model.ChosenCustomer.LastName != "Account")
+                    {
+                        <h3>
+                         @Model.ChosenCustomer.FirstName</h3>
+                    }
 
 <div class="row">
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.Description)</div>
