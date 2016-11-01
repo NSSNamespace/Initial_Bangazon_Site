@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 
-namespace BangazonWeb
+namespace Bangazon
 {
     public class Startup
     {
