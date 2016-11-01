@@ -28,7 +28,8 @@ namespace Bangazon.ViewModels
           //Return fake customer for now
           return new Customer () {
             FirstName = "Create",
-            LastName = "Account"
+            LastName = "Account",
+            CustomerId = 0
           };
         }
 

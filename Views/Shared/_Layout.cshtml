@@ -32,7 +32,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Products" asp-action="Types">Categories</a></li>
-                    @if (@Model.ChosenCustomer.FirstName != "Create" && @Model.ChosenCustomer.LastName != "Account")
+                    @if (@Model.ChosenCustomer.CustomerId != 0)
                     {
                         <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>
                     }              
