@@ -47,14 +47,15 @@ namespace Bangazon.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //Overload the Create() method with an async Task that sends a new customer
-        public async Task<IActionResult>Create(Customer customer)
-        {     
-                context.Add(customer);
-                await context.SaveChangesAsync();
-                return RedirectToAction("Index", "Products");
-        }
+        //Overload the Create() method with an async Task that sends a new customer. Also adds new customer's information to dropdown
 
+        public async Task<IActionResult> Create(Customer customer)
+        {
+            context.Add(customer);
+            await context.SaveChangesAsync();
+            Activate(customer.CustomerId);
+            return RedirectToAction("Index", "Products");
+        }
         //Method: Purpose is to create a new instance of the ActiveCustomer class based on the customerId selected in the dropdown method. Accepts an argument, passed in through route/URL of an integer (the selected customer's primary key/id)
         [HttpPost]
         public IActionResult Activate([FromRoute]int id)
