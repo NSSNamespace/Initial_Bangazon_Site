@@ -1,0 +1,26 @@
+@model Bangazon.ViewModels.ProductListViewModel
+@using Bangazon.Models;
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Date Added</th>
+            <th>View Details</th>
+            <th>Delete/Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Product item in Model.Products)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+        <td>$@Html.DisplayFor(modelItem => item.Price)</td>
+        <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+        <td><a class="btn btn-primary btn-xs" asp-controller="Products" asp-action="Detail" asp-route-id="@item.ProductId">Details</a></td>
+    </tr>
+}
+    </tbody>
+</table>
