@@ -51,7 +51,10 @@ textarea {
     margin-top: 4%; 
 }
 
+.container {
+    position: relative;
+}
 footer {
     position: absolute;
-    bottom: 10px;
+    bottom: -20px;
 }
