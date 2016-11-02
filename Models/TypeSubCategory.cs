@@ -11,7 +11,7 @@ namespace Bangazon.Models
     public class ProductTypeSubCategory
     {
         [Key]
-        public int ProductTypeSubCategory { get; set; }
+        public int ProductTypeSubCategoryId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -21,5 +21,6 @@ namespace Bangazon.Models
         [StringLength(50)]
 
         public int ProductTypeId { get; set; }
+        public ProductType ProductType {get;set;}
     }
 }
