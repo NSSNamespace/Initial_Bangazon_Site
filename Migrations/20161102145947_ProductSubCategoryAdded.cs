@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Initial_Bangazon_Site.Migrations
 {
-    public partial class Mine : Migration
+    public partial class ProductSubCategoryAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,7 +68,7 @@ namespace Initial_Bangazon_Site.Migrations
                     CustomerId = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
                     Description = table.Column<string>(maxLength: 255, nullable: false),
-                    Price = table.Column<double>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
                     ProductTypeId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 55, nullable: false)
                 },
@@ -80,6 +80,26 @@ namespace Initial_Bangazon_Site.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customer",
                         principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductTypeSubCategory",
+                columns: table => new
+                {
+                    ProductTypeSubCategoryId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    ProductTypeId = table.Column<int>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductTypeSubCategory", x => x.ProductTypeSubCategoryId);
+                    table.ForeignKey(
+                        name: "FK_ProductTypeSubCategory_ProductType_ProductTypeId",
+                        column: x => x.ProductTypeId,
+                        principalTable: "ProductType",
+                        principalColumn: "ProductTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -166,6 +186,11 @@ namespace Initial_Bangazon_Site.Migrations
                 name: "IX_Product_CustomerId",
                 table: "Product",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductTypeSubCategory_ProductTypeId",
+                table: "ProductTypeSubCategory",
+                column: "ProductTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -174,13 +199,16 @@ namespace Initial_Bangazon_Site.Migrations
                 name: "LineItem");
 
             migrationBuilder.DropTable(
-                name: "ProductType");
+                name: "ProductTypeSubCategory");
 
             migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "ProductType");
 
             migrationBuilder.DropTable(
                 name: "PaymentType");
