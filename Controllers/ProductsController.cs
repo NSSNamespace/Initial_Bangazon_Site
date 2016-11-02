@@ -32,7 +32,11 @@ namespace Bangazon.Controllers
             ProductListViewModel model = new ProductListViewModel(context);
 
             // Set the properties of the view model
-            model.Products = await context.Product.ToListAsync(); 
+           model.Products = await context.Product.OrderBy(s => s.Title).ToListAsync(); 
+            
+
+            
+            
             return View(model);
         }
 
