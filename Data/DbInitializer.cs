@@ -72,7 +72,7 @@ namespace Bangazon.Data
                 var productTypesSubCategories = new ProductTypeSubCategory[]
                 {
                   new ProductTypeSubCategory {
-                      Name = "Household Electronics",
+                      Name = "Indoor Electronics",
                       ProductTypeId = 1
                   },
 
@@ -83,7 +83,7 @@ namespace Bangazon.Data
                   },
 
                    new ProductTypeSubCategory {
-                      Name = "Kitchen Appliances",
+                      Name = "Office Appliances",
                       ProductTypeId = 2
                    },
 
@@ -93,7 +93,7 @@ namespace Bangazon.Data
                   },
 
                     new ProductTypeSubCategory {
-                      Name = "Bed and Bath",
+                      Name = "Bed and Bath Housewares",
                       ProductTypeId = 3
                     },
 

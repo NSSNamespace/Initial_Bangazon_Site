@@ -8,8 +8,8 @@ using Bangazon.Data;
 namespace Initial_Bangazon_Site.Migrations
 {
     [DbContext(typeof(BangazonContext))]
-    [Migration("20161102155109_SeededDbSubCategories")]
-    partial class SeededDbSubCategories
+    [Migration("20161102205146_SeededSubcategories")]
+    partial class SeededSubcategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
