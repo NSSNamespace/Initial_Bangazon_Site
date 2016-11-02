@@ -49,6 +49,7 @@ namespace Bangazon.Data
                 }
                 context.SaveChanges();
 
+
                 var productTypes = new ProductType[]
                 {
                   new ProductType {
@@ -65,6 +66,46 @@ namespace Bangazon.Data
                 foreach (ProductType i in productTypes)
                 {
                     context.ProductType.Add(i);
+                }
+                context.SaveChanges();
+
+                var productTypesSubCategories = new ProductTypeSubCategory[]
+                {
+                  new ProductTypeSubCategory {
+                      Name = "Household Electronics",
+                      ProductTypeId = 1
+                  },
+
+
+                 new ProductTypeSubCategory {
+                      Name = "Outdoor Electronics",
+                      ProductTypeId = 1
+                  },
+
+                   new ProductTypeSubCategory {
+                      Name = "Kitchen Appliances",
+                      ProductTypeId = 2
+                   },
+
+                 new ProductTypeSubCategory {
+                      Name = "Miscellaneous Appliances",
+                      ProductTypeId = 2
+                  },
+
+                    new ProductTypeSubCategory {
+                      Name = "Bed and Bath",
+                      ProductTypeId = 3
+                    },
+
+                 new ProductTypeSubCategory {
+                      Name = "Kitchen Housewares",
+                      ProductTypeId = 3
+                  },
+                };
+
+                foreach (ProductTypeSubCategory i in productTypesSubCategories)
+                {
+                    context.ProductTypeSubCategory.Add(i);
                 }
                 context.SaveChanges();
 
