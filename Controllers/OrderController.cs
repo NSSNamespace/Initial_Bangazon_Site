@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.EntityFrameworkCore;
+using Bangazon.ViewModels;
 
 //Author: David Yunker
 
@@ -35,6 +36,14 @@ namespace Bangazon.Controllers
             //  something that fills out Date Completed On Order .... 
 
             return View();
+        }
+        public async Task<IActionResult> Cart()
+        {
+            // Create new instance of the view model
+            OrderViewModel model = new OrderViewModel(context);
+
+            // Set the properties of the view model
+            return View(model);
         }
 
     }
