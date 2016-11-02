@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Initial_Bangazon_Site.Migrations
 {
-    public partial class ProductSubCategoryAdded : Migration
+    public partial class SeededDbSubCategories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
