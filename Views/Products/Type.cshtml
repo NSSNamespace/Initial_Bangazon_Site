@@ -1,6 +1,10 @@
 @model Bangazon.ViewModels.ProductListViewModel
 @using Bangazon.Models;
 
+@{
+    ViewData["Title"] = "Product Listing";
+}
+    <h2>@ViewData["Title"]</h2>
 
 @foreach (Product item in Model.Products)
 
