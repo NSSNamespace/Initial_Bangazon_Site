@@ -114,7 +114,7 @@ namespace Bangazon.Controllers
             //This creates a new instance of the ProductTypesViewModel and passes in the current session with the database (context) as an argument
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
-            model.ProductTypes = await context.ProductType.ToListAsync(); 
+            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync(); 
             return View(model);
         }
         //Method: Purpose is to return the Error view
