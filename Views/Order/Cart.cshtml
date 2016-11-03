@@ -1,21 +1,15 @@
-@model IEnumerable<Bangazon.Models.Product>
+@model Bangazon.ViewModels.OrderViewModel
 
 @{
     ViewData["Title"] = "Your Cart";
 }
 
     <h2>@ViewData["Title"]</h2>
-@foreach (var products in Model)
-    {
 
-
-    <div class="row">
-        <h3>@Html.DisplayFor(modelItem => products.Title)</h3>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => products.Description)</div>
-        <div class="col-md-3">@Html.DisplayFor(modelItem => products.Price)</div>
-    </div>
-    }
-
+    <!-- test div -->
+    <div>active user = @Model.ChosenCustomer.FirstName @Model.ChosenCustomer.LastName </div>
+    
+    <!--end test -->
     <div class="col-md-3"><a asp-action="Confirm">Complete Order</a></div>
    
 

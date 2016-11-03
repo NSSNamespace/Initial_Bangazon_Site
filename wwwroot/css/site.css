@@ -58,3 +58,25 @@ footer {
     position: absolute;
     bottom: -20px;
 }
+
+@media screen and (max-width: 768px) {
+    .dropdownWrapper {
+        padding: 10px 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .dropdownWrapper {
+        margin-top: 3px;
+        position: relative;
+    }
+
+    .customerButton {
+        position: absolute;
+        bottom: 0px;
+        /* override boostrap things on the line below */
+        padding: 0px !important;
+        margin-left: 20px;
+        margin-top: 3px;
+    }
+}

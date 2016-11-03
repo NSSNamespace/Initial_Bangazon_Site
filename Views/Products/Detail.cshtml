@@ -18,7 +18,11 @@
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.Description)</div>
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.Price)</div>
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.DateCreated)</div>
-    <div class="col-md-3"><a asp-action="Purchase" asp-route-id="@Model.Product.ProductId">Purchase</a></div>
+    @if (@Model.ChosenCustomer.CustomerId != 0)
+    {   
+        <div class="col-md-3"><a asp-controller="" asp-action="Detail" asp-route-id="@Model.Product.ProductId">Add to cart</a></div>
+        
+    }
 </div>
 
 <div>
