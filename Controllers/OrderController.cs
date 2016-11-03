@@ -40,7 +40,8 @@ namespace Bangazon.Controllers
 
         // Author: Elliott Williams
         // Method: Purpose is to route the user to cart associated with the active customer
-        public async Task<IActionResult> Cart()
+        [HttpGet]
+        public IActionResult Cart()
         {
             // Create new instance of the view model
             OrderViewModel model = new OrderViewModel(context);
@@ -51,12 +52,6 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Purchase(Product product)
-        {
-
-
-            return RedirectToAction("Index", "Products");
-        }
 
     }
 }
