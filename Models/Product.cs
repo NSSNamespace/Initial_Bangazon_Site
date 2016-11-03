@@ -34,6 +34,8 @@ namespace Bangazon.Models
         [DisplayAttribute(Name = "Category")]
         public int ProductTypeId { get; set; }
 
+        public ProductType ProductType { get; set; }
+
         [Required]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
