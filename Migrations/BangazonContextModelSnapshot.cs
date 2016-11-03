@@ -125,6 +125,8 @@ namespace Initial_Bangazon_Site.Migrations
 
                     b.Property<int>("ProductTypeId");
 
+                    b.Property<int>("ProductTypeSubCategoryId");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 55);
@@ -132,6 +134,10 @@ namespace Initial_Bangazon_Site.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("ProductTypeSubCategoryId");
 
                     b.ToTable("Product");
                 });
@@ -207,6 +213,16 @@ namespace Initial_Bangazon_Site.Migrations
                     b.HasOne("Bangazon.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bangazon.Models.ProductType", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bangazon.Models.ProductTypeSubCategory", "ProductTypeSubCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeSubCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -36,10 +36,10 @@ namespace Bangazon.Models
         public int ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
 
-        [Required]
-        [DisplayAttribute(Name = "SubCategory")]
-        public int ProductTypeSubCategoryId { get; set; }
-        public ProductTypeSubCategory ProductTypeSubCategory { get; set; }
+        // [Required]
+        // [DisplayAttribute(Name = "SubCategory")]
+        // public int ProductTypeSubCategoryId { get; set; }
+        // public ProductTypeSubCategory ProductTypeSubCategory { get; set; }
 
         [Required]
         public int CustomerId { get; set; }
