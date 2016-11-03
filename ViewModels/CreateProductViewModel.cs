@@ -30,7 +30,12 @@ namespace Bangazon.ViewModels
                 {
                     Text = li.Label,
                     Value = li.ProductTypeId.ToString()
-                }).ToList();    
+                }).ToList();   
+
+                  this.ProductTypeId.Insert(0, new SelectListItem { 
+                Text = "Please Select a Category",
+                Value = "0"
+            }); 
 
               this.ProductTypeSubCategoryId = context.ProductTypeSubCategory 
                 .OrderBy(l => l.Name)
@@ -39,7 +44,12 @@ namespace Bangazon.ViewModels
                 {
                     Text = li.Name,
                     Value = li.ProductTypeSubCategoryId.ToString()
-                }).ToList();    
+                }).ToList();  
+
+                   this.ProductTypeSubCategoryId.Insert(0, new SelectListItem { 
+                Text = "Please Select a SubCategory",
+                Value = "0"
+            });  
         }
     }
 }
