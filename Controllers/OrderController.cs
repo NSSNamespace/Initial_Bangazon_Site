@@ -37,14 +37,30 @@ namespace Bangazon.Controllers
 
             return View();
         }
+
+        // Author: Elliott Williams
+        // Method: Purpose is to route the user to cart associated with the active customer
         public async Task<IActionResult> Cart()
         {
             // Create new instance of the view model
             OrderViewModel model = new OrderViewModel(context);
+            // variable to hold the instance of the active customer
+            var customer = ActiveCustomer.instance.Customer;
 
             // Set the properties of the view model
             return View(model);
         }
 
+        public async Task<IActionResult> Purchase(Product product)
+        {
+
+
+            return RedirectToAction("Index", "Products");
+        }
+
     }
 }
+
+//get current user
+//get order associated with user
+//show products (line items?) in order

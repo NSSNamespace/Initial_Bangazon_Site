@@ -4,7 +4,7 @@ using Bangazon.Data;
 
 namespace Bangazon.ViewModels
 {
-    class OrderViewModel : BaseViewModel
+    public class OrderViewModel : BaseViewModel
     {
         public double TotalCost { get; set; }
         public Order Order { get; set; }

@@ -19,8 +19,14 @@
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.Price)</div>
     <div class="col-md-3">@Html.DisplayFor(model => model.Product.DateCreated)</div>
     @if (@Model.ChosenCustomer.CustomerId != 0)
-    {
-        <div class="col-md-3"><a asp-action="Purchase" asp-route-id="@Model.Product.ProductId">Purchase</a></div>
+    {   
+        <script>
+            $( ".clicker" ).click(function() {
+                alert( "Handler for .click() called." );
+            });
+        </script>
+        <div class="col-md-3 clicker"><a asp-action="" asp-route-id="">Add to cart</a></div>
+        
     }
 </div>
 
