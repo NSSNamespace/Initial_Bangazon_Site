@@ -8,6 +8,8 @@ Model (capital "m") references the instantiation of the model.*@
 <h2>@ViewData["Title"]</h2>
 
 <form asp-action="Create">
+     @Html.ValidationSummary()
+
     <div class="form-horizontal">
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
