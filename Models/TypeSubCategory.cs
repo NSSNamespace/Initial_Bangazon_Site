@@ -21,6 +21,7 @@ namespace Bangazon.Models
         [StringLength(50)]
 
         public int ProductTypeId { get; set; }
+        
         public ProductType ProductType {get;set;}
     }
 }
