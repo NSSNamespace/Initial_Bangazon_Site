@@ -96,14 +96,14 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
-        //Method (to be developed): Purpose is to return a view that displays all the products of one category. Accepts one argument, passed in through route, of ProductTypeId. Currently contains placeholder text
-        public IActionResult Type([FromRoute]int id)
+        //Method: Purpose is to return a view that displays all the products of one category. Accepts one argument, passed in through route, of ProductTypeId.
+        public async Task<IActionResult> Type([FromRoute]int id)
         {
-            ViewData["Message"] = "Here is the type INSERT TYPE.";
-
-            return View();
+            ProductListViewModel model = new ProductListViewModel(context);
+            model.Products = await context.Product.OrderBy(s => s.Title).Where(p => p.ProductTypeId == id).ToListAsync();
+            return View(model);
         }
-
+        
         //Method: Purpose is to render the ProductTypes view, which displays all product categories
         public async Task<IActionResult> Types()
         {
