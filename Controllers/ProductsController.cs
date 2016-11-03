@@ -32,9 +32,15 @@ namespace Bangazon.Controllers
             ProductListViewModel model = new ProductListViewModel(context);
 
             // Set the properties of the view model
-            model.Products = await context.Product.ToListAsync(); 
+           model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync(); 
+            
+
+            
+            
             return View(model);
         }
+        
+            
 
         //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
@@ -100,7 +106,7 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> Type([FromRoute]int id)
         {
             ProductListViewModel model = new ProductListViewModel(context);
-            model.Products = await context.Product.OrderBy(s => s.Title).Where(p => p.ProductTypeId == id).ToListAsync();
+            model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).Where(p => p.ProductTypeId == id).ToListAsync();
             return View(model);
         }
         
@@ -110,7 +116,7 @@ namespace Bangazon.Controllers
             //This creates a new instance of the ProductTypesViewModel and passes in the current session with the database (context) as an argument
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
-            model.ProductTypes = await context.ProductType.ToListAsync(); 
+            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync(); 
             return View(model);
         }
         //Method: Purpose is to return the Error view
