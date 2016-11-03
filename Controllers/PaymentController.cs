@@ -29,7 +29,15 @@ namespace Bangazon.Controllers
 
         public IActionResult Create()
         {
-            
+            var model = new PaymentTypeView(context);
+            return View(model);
+        }
+        [HttpPost]
+        [validateAntiForgeyToken]
+        public async Task<IActionresult> Create (PaymentTypeView paymentType)
+        {
+            paymentType.NewPaymentType.CustomerId = ActiveCustomer.Instance.customer.c=CustomerId;
+            if (ModelState )
         }
 
     }
