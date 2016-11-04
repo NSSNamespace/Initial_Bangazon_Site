@@ -73,6 +73,14 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
+            [HttpPost]
+        public IActionResult GetSubCategories([FromRoute]int id)
+        {
+            //get sub categories with that product type on them
+            var subTypes = context.ProductTypeSubCategory.Where(p => p.ProductTypeId == id).ToList();
+            return Json(subTypes);
+        }
+
         //Method: Purpose is to route user to the detail view on a selected product. Accepts an argument (passed in through the route) of the product's primary key (id)
 
         public async Task<IActionResult> Detail([FromRoute]int? id)

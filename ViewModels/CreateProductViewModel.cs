@@ -37,19 +37,13 @@ namespace Bangazon.ViewModels
                 Value = "0"
             }); 
 
-              this.ProductTypeSubCategoryId = context.ProductTypeSubCategory 
-                .OrderBy(l => l.Name)
-                .AsEnumerable()
-                .Select(li => new SelectListItem
-                {
-                    Text = li.Name,
-                    Value = li.ProductTypeSubCategoryId.ToString()
-                }).ToList();  
+        this.ProductTypeSubCategoryId  = new List<SelectListItem>();
 
-                   this.ProductTypeSubCategoryId.Insert(0, new SelectListItem { 
-                Text = "Please Select a SubCategory",
-                Value = "0"
-            });  
+        this.ProductTypeSubCategoryId.Insert(0, new SelectListItem{
+          Text = "Choose a Product Category to See Sub-Categories",
+          Value = ""
+        });
+          
         }
     }
 }
