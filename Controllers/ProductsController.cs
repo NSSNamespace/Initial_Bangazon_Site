@@ -32,15 +32,15 @@ namespace Bangazon.Controllers
             ProductListViewModel model = new ProductListViewModel(context);
 
             // Set the properties of the view model
-           model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync(); 
-            
+            model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync();
 
-            
-            
+
+
+
             return View(model);
         }
-        
-            
+
+
 
         //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
@@ -62,8 +62,8 @@ namespace Bangazon.Controllers
             product.CustomerId = customer.CustomerId;
 
             //This creates a new instance of the CreateProductViewModel so that we can return the same view (i.e., the existing product info user has entered into the form) if the model state is invalid when user tries to create product
-            CreateProductViewModel model = new CreateProductViewModel(context); 
-            
+            CreateProductViewModel model = new CreateProductViewModel(context);
+
             if (ModelState.IsValid)
             {
                 context.Add(product);
@@ -73,7 +73,7 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
-            [HttpPost]
+        [HttpPost]
         public IActionResult GetSubCategories([FromRoute]int id)
         {
             //get sub categories with that product type on them
@@ -117,14 +117,14 @@ namespace Bangazon.Controllers
             model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).Where(p => p.ProductTypeId == id).ToListAsync();
             return View(model);
         }
-        
+
         //Method: Purpose is to render the ProductTypes view, which displays all product categories
         public async Task<IActionResult> Types()
         {
             //This creates a new instance of the ProductTypesViewModel and passes in the current session with the database (context) as an argument
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
-            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync(); 
+            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync();
             return View(model);
         }
         //Method: Purpose is to return the Error view
@@ -133,23 +133,37 @@ namespace Bangazon.Controllers
             return View();
         }
 
-       [HttpPost]
-         public async Task<IActionResult> AddToCart([FromRoute] int id) {
-             
-         
-                var order = new Order();
-                var customer = ActiveCustomer.instance.Customer;
-                order.CustomerId = Convert.ToInt32(customer.CustomerId);
-                context.Add(order);
+        [HttpPost]
+        public async Task<IActionResult> AddToCart([FromRoute] int id)
+        {
+            Customer customer = ActiveCustomer.instance.Customer;
+
+            Order existingOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId == customer.CustomerId).SingleOrDefaultAsync();
+
+            if (existingOrder == null)
+            {
+                Order newOrder = new Order();
+                newOrder.CustomerId = Convert.ToInt32(customer.CustomerId);
+                context.Add(newOrder);
                 await context.SaveChangesAsync();
 
-                var lineItem = new LineItem();
-                lineItem.OrderId = order.OrderId;
+                LineItem lineItem = new LineItem();
+                lineItem.OrderId = newOrder.OrderId;
                 lineItem.ProductId = Convert.ToInt32(id);
                 context.Add(lineItem);
                 await context.SaveChangesAsync();
-                return Json(id);
-             }
-         }
-        
+                return RedirectToAction("Index");
+            }
+
+            else
+            {
+                var lineItem = new LineItem();
+                lineItem.OrderId = existingOrder.OrderId;
+                lineItem.ProductId = Convert.ToInt32(id);
+                context.Add(lineItem);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+        }
+    }
 }

@@ -18,11 +18,9 @@ $(document).ready(function () {
         $.ajax({
             url: `/Products/AddToCart/${$(this).val()}`,
             method: "POST",
-            dataType: "json",
             contentType: 'application/json; charset=utf-8'
-        }).done((result) => {
-            console.log('result of post', result);
-            // location.reload(); 
+        }).done(() => {
+            console.log('product added to cart');
         });
     });
     $("#Product_ProductTypeId").on("change", function (e) {
