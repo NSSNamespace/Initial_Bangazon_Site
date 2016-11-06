@@ -133,33 +133,40 @@ namespace Bangazon.Controllers
             return View();
         }
 
+        //Method: Purpose is to create a new line item in the database when a customer clicks the "Add to Cart" button on a product. Accepts an argument of the productId, which is passed in through the post request attached to event listener on "Add to Cart" button
         [HttpPost]
         public async Task<IActionResult> AddToCart([FromRoute] int id)
         {
+            //Define "customer" as the current active customer so that this customer's id can be used throughout the method
             Customer customer = ActiveCustomer.instance.Customer;
-
-            Order existingOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId == customer.CustomerId).SingleOrDefaultAsync();
-
-            if (existingOrder == null)
+            //Define "openOrder" as an order in the database associated with the customer's id but not yet completed
+            Order openOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId == customer.CustomerId).SingleOrDefaultAsync();
+            //If there is no open order, create one and add the customer's id to the order 
+            if (openOrder == null)
             {
                 Order newOrder = new Order();
                 newOrder.CustomerId = Convert.ToInt32(customer.CustomerId);
+                //Add the new order to the database
                 context.Add(newOrder);
                 await context.SaveChangesAsync();
+                // Then, create a new line item and add the open order's id and the product id to that line item
 
                 LineItem lineItem = new LineItem();
                 lineItem.OrderId = newOrder.OrderId;
                 lineItem.ProductId = Convert.ToInt32(id);
+                //Add the line item to the database
                 context.Add(lineItem);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
+            //If there is an open order, create a new line item and add it to that order
             else
             {
-                var lineItem = new LineItem();
-                lineItem.OrderId = existingOrder.OrderId;
+                LineItem lineItem = new LineItem();
+                lineItem.OrderId = openOrder.OrderId;
                 lineItem.ProductId = Convert.ToInt32(id);
+                //Add the line item to the database
                 context.Add(lineItem);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
