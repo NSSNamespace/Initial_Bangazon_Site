@@ -12,6 +12,19 @@ $(document).ready(function () {
             console.log('hi')
         });
     });
+
+    $("#AddToCart").on("click", function(e) {
+        console.log('AddtoCart clicked')
+        $.ajax({
+            url: `/Products/AddToCart/${$(this).val()}`,
+            method: "POST",
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8'
+        }).done((result) => {
+            console.log('result of post', result);
+            // location.reload(); 
+        });
+    });
     $("#Product_ProductTypeId").on("change", function (e) {
         $.ajax({
             url: `/Products/GetSubCategories/${$(this).val()}`,

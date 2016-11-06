@@ -132,5 +132,24 @@ namespace Bangazon.Controllers
         {
             return View();
         }
-    }
+
+       [HttpPost]
+         public async Task<IActionResult> AddToCart([FromRoute] int id) {
+             
+         
+                var order = new Order();
+                var customer = ActiveCustomer.instance.Customer;
+                order.CustomerId = Convert.ToInt32(customer.CustomerId);
+                context.Add(order);
+                await context.SaveChangesAsync();
+
+                var lineItem = new LineItem();
+                lineItem.OrderId = order.OrderId;
+                lineItem.ProductId = Convert.ToInt32(id);
+                context.Add(lineItem);
+                await context.SaveChangesAsync();
+                return Json(id);
+             }
+         }
+        
 }
