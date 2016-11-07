@@ -27,7 +27,7 @@ namespace Bangazon.Controllers
             context = ctx;
         }
 
-        //Method: Purpose is to return a view that tells the customer his/her order has been processed
+        //Method: Purpose is to return patch order in database to reflect date completed when customer clicks confirm button
         [HttpPatch]
         public async Task <IActionResult> Confirm()
         {
@@ -36,12 +36,10 @@ namespace Bangazon.Controllers
             activeOrder.DateCompleted = DateTime.Today;
             context.Update(activeOrder);
             await context.SaveChangesAsync();
-
             BaseViewModel model = new BaseViewModel();
-            //  something that fills out Date Completed On Order .... 
-
             return View(model);
         }
+        //Method: Purpose is to route the customer to the confirmation page once confirm button has been clicked and order date completed patch is completed
 
         public IActionResult Confirmation() {
             ViewData["Message"] = @"Order Processed! 
