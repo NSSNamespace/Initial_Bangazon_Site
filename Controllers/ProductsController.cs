@@ -157,7 +157,7 @@ namespace Bangazon.Controllers
                 //Add the line item to the database
                 context.Add(lineItem);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "Products");
+                // return RedirectToAction("Index", "Products");
             }
 
             //If there is an open order, create a new line item and add it to that order
@@ -169,8 +169,10 @@ namespace Bangazon.Controllers
                 //Add the line item to the database
                 context.Add(lineItem);
                 await context.SaveChangesAsync();
-                return RedirectToAction("Index", "Products");
+                // return RedirectToAction("Index", "Products");
+
             }
+            return RedirectToAction("Index", "Products");
         }
     }
 }
