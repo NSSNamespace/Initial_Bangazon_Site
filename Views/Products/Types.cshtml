@@ -10,4 +10,14 @@
         <div class="row typesList">
             <div class="col-md-12"><a asp-controller="Products" asp-action="Type" asp-route-id="@type.ProductTypeId">@Html.DisplayFor(modelItem => type.Label)</a></div>
         </div>
+        
+        @foreach (var subcat in Model.ProductTypeSubCategories)
+        {   
+            if (subcat.ProductTypeId == type.ProductTypeId) 
+            {
+                <div class="row typesSubCategories">
+                    <div class="col-md-12"><a>@Html.DisplayFor(modelItem => subcat.Name)</a></div>
+                </div>
+            }
+        }
     }

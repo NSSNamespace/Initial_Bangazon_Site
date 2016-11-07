@@ -125,6 +125,7 @@ namespace Bangazon.Controllers
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
             model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync();
+            model.ProductTypeSubCategories = await context.ProductTypeSubCategory.OrderBy(s => s.Name).ToListAsync();
             return View(model);
         }
         //Method: Purpose is to return the Error view
