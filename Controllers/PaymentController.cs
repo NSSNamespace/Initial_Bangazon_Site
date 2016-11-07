@@ -34,14 +34,16 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create (PaymentTypeViewModel paymentType)
         {
-            // New payment Type is Linked to the linked to 
+            // The new payment type is linked to the active customer if the entered text satifies the model
             paymentType.NewPaymentType.CustomerId = ActiveCustomer.instance.Customer.CustomerId;
             if (ModelState.IsValid)
             {
+                 //Add the line item to the database
                 context.Add(paymentType.NewPaymentType);
                 await context.SaveChangesAsync();
-                return RedirectToAction ("Cart", new RouteValueDictionary(new {controller = "Order", action = "Cart", Id = paymentType.NewPaymentType.PaymentTypeId}));
+                return RedirectToAction ("Cart", "Order");
             }
+            // if the model is not satisfied return an empty view
             var model = new PaymentTypeViewModel(context);
             model.NewPaymentType = paymentType.NewPaymentType;
 

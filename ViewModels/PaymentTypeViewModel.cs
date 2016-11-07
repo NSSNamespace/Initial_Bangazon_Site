@@ -15,7 +15,7 @@ namespace Bangazon.ViewModels
         public PaymentType NewPaymentType{get; set;}
         //Create custom constructor that accepts current BangazonContext as argument and passes it up inheritance chain to BaseViewModel
         public PaymentTypeViewModel(BangazonContext ctx) : base(ctx){}
-        public PaymentTypeViewModel(){}
+       
     }
 }
 
