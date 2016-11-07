@@ -42,7 +42,7 @@ namespace Bangazon.Controllers
                 return RedirectToAction ("Cart", new RouteValueDictionary(new {controller = "Order", action = "Cart", Id = paymentType.NewPaymentType.PaymentTypeId}));
             }
             var model = new PaymentTypeView (context);
-            model.NewPaymentTypeView = paymentType.NewPaymentTypeView;
+            model.NewPaymentType = paymentType.NewPaymentType;
 
             return View(model);
         }
