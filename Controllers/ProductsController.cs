@@ -41,7 +41,9 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> ProductsInSubCategory([FromRoute] int id)
         {
             ProductListViewModel model = new ProductListViewModel(context);
-            model.Products = await context.Product.Where(p => p.ProductTypeSubCategoryId == id).ToListAsync();
+            
+            model.Products = await context.Product.Where(p => p.ProductTypeSubCategoryId == id).OrderBy(s => s.Title.ToUpper()).ToListAsync();
+            // codebase.Methods.Where(x => (x.Body.Scopes.Count > 5) && (x.Foo == "test"));
             return View("Index", model);
 
         }
@@ -80,7 +82,7 @@ namespace Bangazon.Controllers
         public IActionResult GetSubCategories([FromRoute]int id)
         {
             //get sub categories with that product type on them
-            var subTypes = context.ProductTypeSubCategory.Where(p => p.ProductTypeId == id).ToList();
+            var subTypes = context.ProductTypeSubCategory.OrderBy(s => s.Name.ToUpper()).Where(p => p.ProductTypeId == id).ToList();
             return Json(subTypes);
         }
 
