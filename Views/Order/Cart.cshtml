@@ -10,25 +10,29 @@
 <div class ="row text-right">
   <button asp-action="Payment" class="btn btn-danger btn-lg"><a asp-action="Payment">Add Payment</a></button>
 </div><br>
-*@<div class="row text-right">
- <a asp-action="Confirm" class="btn btn-danger btn-lg">Submit Order</a>
-</div>
+*@
 
 @foreach (var product in Model.Products)
 {
-
-  <div class="row text-left">
+<div class="row">
     <div class="col-md-4">
-      <a asp-action="Single" asp-route-id="@product.ProductId" asp-controller="Products">
+
+      <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
         @Html.DisplayFor(modelItem => product.Title)
       </a>
     </div>
-    <div>@Html.DisplayFor(modelItem => product.Description)</div>
-    <div>@Html.DisplayFor(modelItem => product.Price)</div>
+    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Description)</div>
+    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Price)</div>
 </div>
 }
 <div class="row">
-  <strong>Cart Total:</strong> $@Model.CartTotal
+  <div class="col-md-6">
+    <strong>Cart Total:</strong> $@Model.CartTotal
+  </div>
+</div>
+
+<div class="row text-right">
+ <a asp-action="Confirm" class="btn btn-danger btn-lg">Submit Order</a>
 </div>
 
 
