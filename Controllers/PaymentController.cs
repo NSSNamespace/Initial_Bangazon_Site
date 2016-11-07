@@ -1,13 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using BangazonWeb.Data;
+using Bangazon.Data;
 using Bangazon.Models;
 using Bangazon.ViewModels;
 using Microsoft.AspNetCore.Routing;
-
-
-
+using Bangazon.Data;
 
 namespace Bangazon.Controllers
 {
@@ -22,9 +20,9 @@ namespace Bangazon.Controllers
     {
         private BangazonContext  context;
 
-        public PaymentController(BangazonContext)
+        public PaymentController(BangazonContext cxt)
         {
-            context = ctx;
+            context = cxt;
         }
 
         public IActionResult Create()
@@ -33,11 +31,20 @@ namespace Bangazon.Controllers
             return View(model);
         }
         [HttpPost]
-        [validateAntiForgeyToken]
-        public async Task<IActionresult> Create (PaymentTypeView paymentType)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create (PaymentTypeView paymentType)
         {
-            paymentType.NewPaymentType.CustomerId = ActiveCustomer.Instance.customer.c=CustomerId;
-            if (ModelState )
+            paymentType.NewPaymentType.CustomerId = ActiveCustomer.instance.Customer.CustomerId;
+            if (ModelState.IsValid)
+            {
+                context.Add(paymentType.NewPaymentType);
+                await context.SaveChangesAsync();
+                return RedirectToAction ("Cart", new RouteValueDictionary(new {controller = "Order", action = "Cart", Id = paymentType.NewPaymentType.PaymentTypeId}));
+            }
+            var model = new PaymentTypeView (context);
+            model.NewPaymentType = paymentType.NewPaymentType;
+
+            return View(model);
         }
 
     }
