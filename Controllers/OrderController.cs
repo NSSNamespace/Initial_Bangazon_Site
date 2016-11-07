@@ -28,18 +28,27 @@ namespace Bangazon.Controllers
         }
 
         //Method: Purpose is to return a view that tells the customer his/her order has been processed
-        public IActionResult Confirm()
+        [HttpPatch]
+        public async Task <IActionResult> Confirm()
         {
-            BaseViewModel model = new BaseViewModel(context);
+            var customer = ActiveCustomer.instance.Customer;
+            var activeOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId==customer.CustomerId).SingleOrDefaultAsync();
+            activeOrder.DateCompleted = DateTime.Today;
+            context.Update(activeOrder);
+            await context.SaveChangesAsync();
 
-            ViewData["Message"] = @"Order Processed! 
-        Thank you for shopping at Bangazon!";
-
+            BaseViewModel model = new BaseViewModel();
             //  something that fills out Date Completed On Order .... 
 
             return View(model);
         }
 
+        public IActionResult Confirmation() {
+            ViewData["Message"] = @"Order Processed! 
+            Thank you for shopping at Bangazon!";
+            BaseViewModel model = new BaseViewModel(context);
+            return View(model);
+        }
         // Author: Elliott Williams
         // Method: Purpose is to route the user to cart associated with the active customer
     
