@@ -43,10 +43,17 @@ namespace Bangazon.Controllers
 
         public async Task<IActionResult> Create(Customer customer)
         {
+            CreateCustomerViewModel model = new CreateCustomerViewModel(context); 
+
+             if (ModelState.IsValid)
+            {
             context.Add(customer);
             await context.SaveChangesAsync();
             Activate(customer.CustomerId);
             return RedirectToAction("Index", "Products");
+            }
+            return View(model);
+
         }
         //Method: Purpose is to create a new instance of the ActiveCustomer class based on the customerId selected in the dropdown method. Accepts an argument, passed in through route/URL of an integer (the selected customer's primary key/id)
         [HttpPost]

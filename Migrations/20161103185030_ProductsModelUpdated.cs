@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Initial_Bangazon_Site.Migrations
 {
-    public partial class SeededSubcategories : Migration
+    public partial class ProductsModelUpdated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,30 +60,6 @@ namespace Initial_Bangazon_Site.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    CustomerId = table.Column<int>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    ProductTypeId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(maxLength: 55, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Product", x => x.ProductId);
-                    table.ForeignKey(
-                        name: "FK_Product_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductTypeSubCategory",
                 columns: table => new
                 {
@@ -129,6 +105,43 @@ namespace Initial_Bangazon_Site.Migrations
                         principalTable: "PaymentType",
                         principalColumn: "PaymentTypeId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Product",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    CustomerId = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "strftime('%Y-%m-%d %H:%M:%S')"),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    ProductTypeId = table.Column<int>(nullable: false),
+                    ProductTypeSubCategoryId = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(maxLength: 55, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Product", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Product_Customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Product_ProductType_ProductTypeId",
+                        column: x => x.ProductTypeId,
+                        principalTable: "ProductType",
+                        principalColumn: "ProductTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Product_ProductTypeSubCategory_ProductTypeSubCategoryId",
+                        column: x => x.ProductTypeSubCategoryId,
+                        principalTable: "ProductTypeSubCategory",
+                        principalColumn: "ProductTypeSubCategoryId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,6 +201,16 @@ namespace Initial_Bangazon_Site.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Product_ProductTypeId",
+                table: "Product",
+                column: "ProductTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_ProductTypeSubCategoryId",
+                table: "Product",
+                column: "ProductTypeSubCategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductTypeSubCategory_ProductTypeId",
                 table: "ProductTypeSubCategory",
                 column: "ProductTypeId");
@@ -199,22 +222,22 @@ namespace Initial_Bangazon_Site.Migrations
                 name: "LineItem");
 
             migrationBuilder.DropTable(
-                name: "ProductTypeSubCategory");
-
-            migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "ProductType");
-
-            migrationBuilder.DropTable(
                 name: "PaymentType");
 
             migrationBuilder.DropTable(
+                name: "ProductTypeSubCategory");
+
+            migrationBuilder.DropTable(
                 name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "ProductType");
         }
     }
 }

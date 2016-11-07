@@ -32,15 +32,15 @@ namespace Bangazon.Controllers
             ProductListViewModel model = new ProductListViewModel(context);
 
             // Set the properties of the view model
-           model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync(); 
-            
+            model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync();
 
-            
-            
+
+
+
             return View(model);
         }
-        
-            
+
+
 
         //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
@@ -62,8 +62,8 @@ namespace Bangazon.Controllers
             product.CustomerId = customer.CustomerId;
 
             //This creates a new instance of the CreateProductViewModel so that we can return the same view (i.e., the existing product info user has entered into the form) if the model state is invalid when user tries to create product
-            CreateProductViewModel model = new CreateProductViewModel(context); 
-            
+            CreateProductViewModel model = new CreateProductViewModel(context);
+
             if (ModelState.IsValid)
             {
                 context.Add(product);
@@ -71,6 +71,14 @@ namespace Bangazon.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult GetSubCategories([FromRoute]int id)
+        {
+            //get sub categories with that product type on them
+            var subTypes = context.ProductTypeSubCategory.Where(p => p.ProductTypeId == id).ToList();
+            return Json(subTypes);
         }
 
         //Method: Purpose is to route user to the detail view on a selected product. Accepts an argument (passed in through the route) of the product's primary key (id)
@@ -109,20 +117,62 @@ namespace Bangazon.Controllers
             model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).Where(p => p.ProductTypeId == id).ToListAsync();
             return View(model);
         }
-        
+
         //Method: Purpose is to render the ProductTypes view, which displays all product categories
         public async Task<IActionResult> Types()
         {
             //This creates a new instance of the ProductTypesViewModel and passes in the current session with the database (context) as an argument
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
-            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync(); 
+            model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync();
             return View(model);
         }
         //Method: Purpose is to return the Error view
         public IActionResult Error()
         {
             return View();
+        }
+
+        //Method: Purpose is to create a new line item in the database when a customer clicks the "Add to Cart" button on a product. Accepts an argument of the productId, which is passed in through the post request attached to event listener on "Add to Cart" button
+        [HttpPost]
+        public async Task<IActionResult> AddToCart([FromRoute] int id)
+        {
+            //Define "customer" as the current active customer so that this customer's id can be used throughout the method
+            Customer customer = ActiveCustomer.instance.Customer;
+            //Define "openOrder" as an order in the database associated with the customer's id but not yet completed
+            Order openOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId == customer.CustomerId).SingleOrDefaultAsync();
+            //If there is no open order, create one and add the customer's id to the order 
+            if (openOrder == null)
+            {
+                Order newOrder = new Order();
+                newOrder.CustomerId = Convert.ToInt32(customer.CustomerId);
+                //Add the new order to the database
+                context.Add(newOrder);
+                await context.SaveChangesAsync();
+                // Then, create a new line item and add the open order's id and the product id to that line item
+
+                LineItem lineItem = new LineItem();
+                lineItem.OrderId = newOrder.OrderId;
+                lineItem.ProductId = Convert.ToInt32(id);
+                //Add the line item to the database
+                context.Add(lineItem);
+                await context.SaveChangesAsync();
+                // return RedirectToAction("Index", "Products");
+            }
+
+            //If there is an open order, create a new line item and add it to that order
+            else
+            {
+                LineItem lineItem = new LineItem();
+                lineItem.OrderId = openOrder.OrderId;
+                lineItem.ProductId = Convert.ToInt32(id);
+                //Add the line item to the database
+                context.Add(lineItem);
+                await context.SaveChangesAsync();
+                // return RedirectToAction("Index", "Products");
+
+            }
+            return RedirectToAction("Index", "Products");
         }
     }
 }

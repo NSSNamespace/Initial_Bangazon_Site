@@ -1,4 +1,3 @@
-
 using Bangazon.Models;
 using Bangazon.Data;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace Bangazon.ViewModels
   {
     public Product Product { get; set; }
     public List<SelectListItem> ProductTypeId { get; set; }
-
+    public List<SelectListItem> ProductTypeSubCategoryId { get; set; }
     //Create custom constructor that accepts current BangazonContext as argument and passes it up inheritance chain to BaseViewModel
     public CreateProductViewModel(BangazonContext ctx) : base(ctx) 
         { 
@@ -31,7 +30,20 @@ namespace Bangazon.ViewModels
                 {
                     Text = li.Label,
                     Value = li.ProductTypeId.ToString()
-                }).ToList();        
+                }).ToList();   
+
+                  this.ProductTypeId.Insert(0, new SelectListItem { 
+                Text = "Please Select a Category",
+                Value = "0"
+            }); 
+
+        this.ProductTypeSubCategoryId  = new List<SelectListItem>();
+
+        this.ProductTypeSubCategoryId.Insert(0, new SelectListItem{
+          Text = "Choose a Product Category to See Sub-Categories",
+          Value = ""
+        });
+          
         }
     }
 }
