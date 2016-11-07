@@ -4,13 +4,13 @@
   ViewData["Title"] = "Shopping Cart";
 }
 <h1> @ViewData["Title"] </h1>
-@*<div class="row text-right">
+<div class="row text-right">
    @Html.DropDownList("ListOfPaymentTypes")
 </div>
 <div class ="row text-right">
-  <button asp-action="Payment" class="btn btn-danger btn-lg"><a asp-action="Payment">Add Payment</a></button>
+  <button asp-action="Payment" class="btn btn-danger btn-lg"><a asp-controller="Payment"asp-action="Create">Add Payment</a></button>
 </div><br>
-*@
+
 
 @foreach (var product in Model.Products)
 {

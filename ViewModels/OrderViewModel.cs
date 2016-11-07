@@ -12,8 +12,8 @@ namespace Bangazon.ViewModels
     public List<SelectListItem> ListOfPaymentTypes { get; set; }
     public List<Product> Products { get; set; }
     public decimal CartTotal {get; set;}
-    // private BangazonContext context;
-    // private ActiveCustomer singleton = ActiveCustomer.Instance;
+    private BangazonContext context;
+    private ActiveCustomer singleton = ActiveCustomer.instance;
  
     
     //Method Name: OrderViewModel
@@ -21,18 +21,18 @@ namespace Bangazon.ViewModels
     //Arguments in Method: BangazonWebContext
     public OrderViewModel(BangazonContext ctx) : base (ctx)
     {
-        // context = ctx;
-        // this.ListOfPaymentTypes = context.PaymentType
-        //     .Where(pt => pt.CustomerId == singleton.Customer.CustomerId)
-        //     .AsEnumerable()
-        //     .Select(pt => new SelectListItem { 
-        //         Text = $"{pt.FirstName} {pt.LastName} {pt.Processor} {pt.ExpirationDate}",
-        //         Value = pt.PaymentTypeId.ToString()
-        //     }).ToList();
+        context = ctx;
+        this.ListOfPaymentTypes = context.PaymentType
+            .Where(pt => pt.CustomerId == singleton.Customer.CustomerId)
+            .AsEnumerable()
+            .Select(pt => new SelectListItem { 
+                Text = $"",
+                Value = pt.PaymentTypeId.ToString()
+            }).ToList();
         
-        // this.ListOfPaymentTypes.Insert(0, new SelectListItem {
-        //   Text="Choose Payment Type"
-        // });
+        this.ListOfPaymentTypes.Insert(0, new SelectListItem {
+          Text="Choose Payment Type"
+        });
     }
   }
 }
