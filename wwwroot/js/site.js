@@ -23,7 +23,7 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8'
         }).done(() => {
             console.log('product added to cart');
-             window.location.assign("http://localhost:5000");
+            location.reload();
         });
     });
     //listener on product type dropdown that injects corresponding subcategories into product type subcategory dropdown
@@ -41,5 +41,5 @@ $(document).ready(function () {
                 $("#Product_ProductTypeSubCategoryId").append(`<option value="${option.productTypeSubCategoryId}">${option.name}</option>`)
             });
         });
-        });
+    });
 });
