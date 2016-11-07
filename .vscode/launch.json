@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/BangazonWeb.dll",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.0/Initial_Bangazon_Site.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
@@ -26,7 +26,8 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "Bangazon_Db_Path": "/Users/elizabethsanger/workspace/nss-namespace/Initial_Bangazon_Site/bangazon.db" 
             },
             "sourceFileMap": {
                 "/Views": "${workspaceRoot}/Views"
