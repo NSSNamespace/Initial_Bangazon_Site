@@ -9,31 +9,32 @@ using Bangazon.Data;
 
 namespace Bangazon.Controllers
 {
-    /**
-    *Class: PaymentController 
-    *Purpose: To allow the logged in customer to creat a new payment method 
-    *Author: Jammy Laird 
-    *Methods:
-    */
+    
+    
+    // Author: Jammy Laird 
+ 
+    
 
+// Defines the PaymentController controller class, which inherits from base class Controller
     public class PaymentController : Controller     
     {
         private BangazonContext  context;
-
+        //Set a private property on OrderController that stores the current session with db
         public PaymentController(BangazonContext cxt)
         {
             context = cxt;
         }
-
+         //Method: Purpose is to return a view that allows the customer to create a payment method
         public IActionResult Create()
         {
-            var model = new PaymentTypeView(context);
+            var model = new PaymentTypeViewModel(context);
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create (PaymentTypeView paymentType)
+        public async Task<IActionResult> Create (PaymentTypeViewModel paymentType)
         {
+            // New payment Type is Linked to the linked to 
             paymentType.NewPaymentType.CustomerId = ActiveCustomer.instance.Customer.CustomerId;
             if (ModelState.IsValid)
             {
@@ -41,7 +42,7 @@ namespace Bangazon.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction ("Cart", new RouteValueDictionary(new {controller = "Order", action = "Cart", Id = paymentType.NewPaymentType.PaymentTypeId}));
             }
-            var model = new PaymentTypeView (context);
+            var model = new PaymentTypeViewModel(context);
             model.NewPaymentType = paymentType.NewPaymentType;
 
             return View(model);

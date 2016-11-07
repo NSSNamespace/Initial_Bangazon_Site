@@ -18,7 +18,7 @@ namespace Bangazon.Controllers
 
     {
 
-        //Set a private property on OrderController that stores the current session with db
+        
         private BangazonContext context;
 
         //Method: Purpose is make existing session with db (BangazonContext) available to other methods throughout the controller via this custom constructor, which accepts existing session as argument
