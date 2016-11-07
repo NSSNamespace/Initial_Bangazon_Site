@@ -40,22 +40,62 @@ namespace Bangazon.Controllers
 
         // Author: Elliott Williams
         // Method: Purpose is to route the user to cart associated with the active customer
-        [HttpGet]
-        public IActionResult Cart()
-        {
-            // Create new instance of the view model
-            OrderViewModel model = new OrderViewModel(context);
-            // variable to hold the instance of the active customer
-            var customer = ActiveCustomer.instance.Customer;
+        // [HttpGet]
+        // public IActionResult Cart()
+        // {
+        //     // Create new instance of the view model
+        //     OrderViewModel model = new OrderViewModel(context);
+        //     // variable to hold the instance of the active customer
+        //     var customer = ActiveCustomer.instance.Customer;
 
-            // Set the properties of the view model
-            return View(model);
-        }
+        //     // Set the properties of the view model
+        //     return View(model);
+        // }
 
 
-    }
-}
+    
+
 
 //get current user
 //get order associated with user
 //show products (line items?) in order
+
+
+ [HttpGet]
+        public async Task<IActionResult> Cart()
+        {
+            var customer = ActiveCustomer.instance.Customer;
+
+            var activeOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId==customer.CustomerId).SingleOrDefaultAsync();
+            Console.WriteLine(activeOrder);
+
+            OrderViewModel model = new OrderViewModel(context);
+
+            if (activeOrder == null)
+            {
+               var product = new Product(){Description="You have no products in your cart!", Title=""};
+                model.Products = new List<Product>();
+                model.Products.Add(product);
+                return View(model);
+            }
+
+            List<LineItem> LineItemsOnActiveOrder = context.LineItem.Where(li => li.OrderId == activeOrder.OrderId).ToList();
+            
+            List<Product> ListOfProducts = new List<Product>();
+
+            decimal CartTotal = 0;
+
+            for(var i = 0; i < LineItemsOnActiveOrder.Count(); i++)
+            {
+                ListOfProducts.Add(context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault());
+                CartTotal += context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault().Price;
+            }
+
+            model.CartTotal = CartTotal;
+            model.Products = ListOfProducts;
+
+            return View(model);
+            
+        }
+    }
+}
