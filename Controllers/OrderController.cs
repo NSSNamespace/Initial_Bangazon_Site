@@ -30,35 +30,19 @@ namespace Bangazon.Controllers
         //Method: Purpose is to return a view that tells the customer his/her order has been processed
         public IActionResult Confirm()
         {
+            BaseViewModel model = new BaseViewModel(context);
+
             ViewData["Message"] = @"Order Processed! 
         Thank you for shopping at Bangazon!";
 
             //  something that fills out Date Completed On Order .... 
 
-            return View();
+            return View(model);
         }
 
         // Author: Elliott Williams
         // Method: Purpose is to route the user to cart associated with the active customer
-        // [HttpGet]
-        // public IActionResult Cart()
-        // {
-        //     // Create new instance of the view model
-        //     OrderViewModel model = new OrderViewModel(context);
-        //     // variable to hold the instance of the active customer
-        //     var customer = ActiveCustomer.instance.Customer;
-
-        //     // Set the properties of the view model
-        //     return View(model);
-        // }
-
-
     
-
-
-//get current user
-//get order associated with user
-//show products (line items?) in order
 
 
  [HttpGet]
