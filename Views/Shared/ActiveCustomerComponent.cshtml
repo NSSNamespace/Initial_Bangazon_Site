@@ -16,7 +16,7 @@
         {
             <a class="customerButton" asp-area="" asp-controller="Order" asp-action="Cart">
                 @Model.ChosenCustomer.FirstName @Model.ChosenCustomer.LastName
-                <span class="glyphicon glyphicon-shopping-cart"></span> (@ViewData["counts"] )</a>
+                <span class="glyphicon glyphicon-shopping-cart"></span> @Model.ShoppingCartItems )</a>
 
         }
     </li>

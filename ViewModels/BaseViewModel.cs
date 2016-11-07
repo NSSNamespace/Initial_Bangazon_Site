@@ -13,6 +13,10 @@ namespace Bangazon.ViewModels
     public List<SelectListItem> CustomerId { get; set; }
     private BangazonContext context;
 
+    public List<Product> CartProducts { get; set; }
+
+        public int TotalCount { get;  private set; }
+
     //ActiveCustomer.instance instantiates an instance of ActiveCustomer. This instatiation has a property of Customer on it. That's what we assign to ActiveCustomer. 
     private ActiveCustomer singleton = ActiveCustomer.instance;
     public Customer ChosenCustomer 
@@ -61,7 +65,33 @@ namespace Bangazon.ViewModels
                 Text = "Choose customer...",
                 Value = "0"
             });
-    }  
+    }
+      public string ShoppingCartItems {
+      get {
+        Customer customer = singleton.Customer;
+
+        if (customer == null)
+        {
+          // Return null because there should not be a number next to the link if a customer has not been chosen.
+          return "";
+        }
+        if (customer != null){
+          //If there is a customer but the customer does not have an active order then the shopping cart should have 0 items in it.
+           Order order = context.Order.Where(o => o.CustomerId == customer.CustomerId && o.DateCompleted == null).SingleOrDefault();
+           if (order == null){
+             return " (0)";
+           }
+           //If the user has an active order then the number of products in that order will be returned
+           if (order != null){
+            List<LineItem> lineItems = context.LineItem.Where(l => l.OrderId == order.OrderId).ToList();
+            string shoppingCartCount = lineItems.Count.ToString();
+            return " ("+shoppingCartCount+")";
+           }
+        }
+        return "";
+      }
+    }
+   
     public BaseViewModel() { }
   }
 }
