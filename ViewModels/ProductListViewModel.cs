@@ -12,9 +12,10 @@ namespace Bangazon.ViewModels
   {
     public IEnumerable<Product> Products { get; set; }
 
-    //Create a custom constructor that accepts BangazonContext as an argument and passes that context (session with db) up to the methods on BaseViewModel
 
     public IEnumerable<ProductTypeSubCategory> ProductTypeSubCategories {get; set;}
+   
+    //Create a custom constructor that accepts BangazonContext as an argument and passes that context (session with db) up to the methods on BaseViewModel
     public ProductListViewModel(BangazonContext ctx) : base(ctx) { }
   }
 }
