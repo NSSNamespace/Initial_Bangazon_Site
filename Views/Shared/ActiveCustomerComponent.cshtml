@@ -1,3 +1,5 @@
+
+
 <ul class="nav navbar-nav navbar-right">
     <li>
         <div class="dropdownWrapper">
@@ -14,7 +16,10 @@
         {
             <a class="customerButton" asp-area="" asp-controller="Order" asp-action="Cart">
                 @Model.ChosenCustomer.FirstName @Model.ChosenCustomer.LastName
-            </a>
+                <span class="glyphicon glyphicon-shopping-cart"></span> (@ViewData["counts"] )</a>
+
         }
     </li>
 </ul>
+
+

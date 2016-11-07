@@ -1,16 +1,38 @@
 @model Bangazon.ViewModels.OrderViewModel
 
 @{
-    ViewData["Title"] = "Your Cart";
+  ViewData["Title"] = "Shopping Cart";
 }
+<h1> @ViewData["Title"] </h1>
+@*<div class="row text-right">
+   @Html.DropDownList("ListOfPaymentTypes")
+</div>
+<div class ="row text-right">
+  <button asp-action="Payment" class="btn btn-danger btn-lg"><a asp-action="Payment">Add Payment</a></button>
+</div><br>
+*@
 
-    <h2>@ViewData["Title"]</h2>
+@foreach (var product in Model.Products)
+{
+<div class="row">
+    <div class="col-md-4">
 
-    <!-- test div -->
-    <div>active user = @Model.ChosenCustomer.FirstName @Model.ChosenCustomer.LastName </div>
-    
-    <!--end test -->
-    <div class="col-md-3"><a asp-action="Confirm">Complete Order</a></div>
-   
+      <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
+        @Html.DisplayFor(modelItem => product.Title)
+      </a>
+    </div>
+    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Description)</div>
+    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Price)</div>
+</div>
+}
+<div class="row">
+  <div class="col-md-6">
+    <strong>Cart Total:</strong> $@Model.CartTotal
+  </div>
+</div>
+
+<div class="row text-right">
+ <a asp-action="Confirm" class="btn btn-danger btn-lg">Submit Order</a>
+</div>
 
 
