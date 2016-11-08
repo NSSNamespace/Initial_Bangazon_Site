@@ -9,7 +9,7 @@ namespace Bangazon.ViewModels
 {
      public class OrderViewModel : BaseViewModel
   {
-    public List<SelectListItem> ListOfPaymentTypes { get; set; }
+    public List<SelectListItem> PaymentTypeId { get; set; }
     public List<Product> Products { get; set; }
     public decimal CartTotal {get; set;}
     private BangazonContext context;
@@ -21,17 +21,19 @@ namespace Bangazon.ViewModels
     //Arguments in Method: BangazonWebContext
     public OrderViewModel(BangazonContext ctx) : base (ctx)
     {
-        context = ctx;
-        this.ListOfPaymentTypes = context.PaymentType
-            .Where(pt => pt.CustomerId == singleton.Customer.CustomerId)
+        var customer = ActiveCustomer.instance.Customer;
+         var context = ctx;
+        this.PaymentTypeId = context.PaymentType
+            .Where(pt => pt.CustomerId == customer.CustomerId)
             .AsEnumerable()
-            .Select(pt => new SelectListItem { 
-                Text = $"",
-                Value = pt.PaymentTypeId.ToString()
+            .Select(li => new SelectListItem { 
+                Text = li.Description,
+                Value = li.PaymentTypeId.ToString()
             }).ToList();
         
-        this.ListOfPaymentTypes.Insert(0, new SelectListItem {
-          Text="Choose Payment Type"
+        this.PaymentTypeId.Insert(0, new SelectListItem {
+          Text="Choose Payment Type",
+          Value = ""
         });
     }
   }

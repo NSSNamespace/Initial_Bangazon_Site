@@ -5,7 +5,7 @@
 }
 <h1> @ViewData["Title"] </h1>
 <div class="row text-right">
-   @Html.DropDownList("ListOfPaymentTypes")
+  @Html.DropDownList("Payment.PaymentTypeId", @Model.PaymentTypeId)
 </div>
 <div class ="row text-right">
   <button asp-action="Create" class="btn btn-danger btn-lg"><a asp-controller="Payment"asp-action="Create">Add Payment</a></button>
