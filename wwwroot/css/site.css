@@ -59,6 +59,27 @@ footer {
     bottom: -20px;
 }
 
+.cartItem {
+    margin-bottom: 10px;
+}
+
+.cartItemSpec {
+    width: 200px;
+}
+
+.cartRightItemWrapper {
+    margin-bottom: 10px;    
+}
+
+@media screen and (max-width: 768px) {
+    .cartRightWrapper {
+        padding-top: 20px;
+    }
+    .cartRightItemWrapper {
+        text-align: left;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .dropdownWrapper {
         padding: 10px 15px;
