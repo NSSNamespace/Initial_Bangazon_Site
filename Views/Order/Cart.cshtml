@@ -4,35 +4,42 @@
   ViewData["Title"] = "Shopping Cart";
 }
 <h1> @ViewData["Title"] </h1>
-<div class="row text-right">
-  @Html.DropDownList("Payment.PaymentTypeId", @Model.PaymentTypeId)
-</div>
-<div class ="row text-right">
-  <button asp-action="Create" class="btn btn-danger btn-lg"><a asp-controller="Payment"asp-action="Create">Add Payment</a></button>
-</div><br>
 
-
-@foreach (var product in Model.Products)
-{
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-sm-8">
 
-      <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
-        @Html.DisplayFor(modelItem => product.Title)
-      </a>
+        @foreach (var product in Model.Products)
+        {
+            <div class="cartItem">
+                <span class="cartItemSpec">
+                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
+                        @Html.DisplayFor(modelItem => product.Title)
+                    </a>
+                </span>
+
+                <span class="cartItemSpec">
+                    @Html.DisplayFor(modelItem => product.Price)
+                </span>
+
+                <span class="cartItemSpec">
+                    Qty
+                </span>
+            </div>
+        }
+        <strong>Cart Total:</strong> $@Model.CartTotal
     </div>
-    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Description)</div>
-    <div class="col-md-4">@Html.DisplayFor(modelItem => product.Price)</div>
-</div>
-}
-<div class="row">
-  <div class="col-md-6">
-    <strong>Cart Total:</strong> $@Model.CartTotal
-  </div>
-</div>
 
-<div class="row text-right">
- <a asp-controller="Order" asp-action="Confirmation" class="btn btn-danger btn-lg" id="Confirm">Submit Order</a>
+    <div class="col-sm-4 cartRightWrapper">
+        <div class="cartRightItemWrapper text-center">
+            @Html.DropDownList("Payment.PaymentTypeId", @Model.PaymentTypeId)
+        </div>
+
+        <div class="cartRightItemWrapper text-center">
+            <a class="btn btn-danger" asp-controller="Payment" asp-action="Create">Add Payment</a>
+        </div>
+
+        <div class="cartRightItemWrapper text-center">
+            <a asp-controller="Order" asp-action="Confirmation" class="btn btn-danger" id="Confirm">Submit Order</a>
+        </div>
+    </div>
 </div>
-
-
