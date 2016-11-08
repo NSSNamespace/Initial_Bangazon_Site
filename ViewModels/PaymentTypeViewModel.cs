@@ -12,7 +12,7 @@ namespace Bangazon.ViewModels
     {
         //Create PayemntTypeViewModel class, which inherits from BaseViewModel, and therefore contains the active customer 
 
-        public PaymentType NewPaymentType{get; set;}
+        public PaymentType PaymentType {get; set;}
         //Create custom constructor that accepts current BangazonContext as argument and passes it up inheritance chain to BaseViewModel
         public PaymentTypeViewModel(BangazonContext ctx) : base(ctx){}
        
