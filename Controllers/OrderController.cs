@@ -27,38 +27,29 @@ namespace Bangazon.Controllers
             context = ctx;
         }
 
-        //Method: Purpose is to return a view that tells the customer his/her order has been processed
-        public IActionResult Confirm()
+        //Method: Purpose is to return patch order in database to reflect date completed when customer clicks confirm button
+        [HttpPatch]
+        public async Task <IActionResult> Confirm()
         {
-            ViewData["Message"] = @"Order Processed! 
-        Thank you for shopping at Bangazon!";
-
-            //  something that fills out Date Completed On Order .... 
-
-            return View();
+            var customer = ActiveCustomer.instance.Customer;
+            var activeOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId==customer.CustomerId).SingleOrDefaultAsync();
+            activeOrder.DateCompleted = DateTime.Today;
+            context.Update(activeOrder);
+            await context.SaveChangesAsync();
+            BaseViewModel model = new BaseViewModel();
+            return View(model);
         }
+        //Method: Purpose is to route the customer to the confirmation page once confirm button has been clicked and order date completed patch is completed
 
+        public IActionResult Confirmation() {
+            ViewData["Message"] = @"Order Processed! 
+            Thank you for shopping at Bangazon!";
+            BaseViewModel model = new BaseViewModel(context);
+            return View(model);
+        }
         // Author: Elliott Williams
         // Method: Purpose is to route the user to cart associated with the active customer
-        // [HttpGet]
-        // public IActionResult Cart()
-        // {
-        //     // Create new instance of the view model
-        //     OrderViewModel model = new OrderViewModel(context);
-        //     // variable to hold the instance of the active customer
-        //     var customer = ActiveCustomer.instance.Customer;
-
-        //     // Set the properties of the view model
-        //     return View(model);
-        // }
-
-
     
-
-
-//get current user
-//get order associated with user
-//show products (line items?) in order
 
 
  [HttpGet]
