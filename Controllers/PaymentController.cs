@@ -5,7 +5,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Bangazon.ViewModels;
 using Microsoft.AspNetCore.Routing;
-using Bangazon.Data;
+
 
 namespace Bangazon.Controllers
 {

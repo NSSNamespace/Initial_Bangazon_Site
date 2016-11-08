@@ -34,14 +34,19 @@ namespace Bangazon.Controllers
             // Set the properties of the view model
             model.Products = await context.Product.OrderBy(s => s.Title.ToUpper()).ToListAsync();
 
-
-
-
             return View(model);
         }
 
+        //Method: purpose is to return the AllProductsView only show products in the selected filtered by subcategory. Accepts an argument of the selected subcategory's id
+        public async Task<IActionResult> ProductsInSubCategory([FromRoute] int id)
+        {
+            ProductListViewModel model = new ProductListViewModel(context);
+            
+            model.Products = await context.Product.Where(p => p.ProductTypeSubCategoryId == id).OrderBy(s => s.Title.ToUpper()).ToListAsync();
+            // codebase.Methods.Where(x => (x.Body.Scopes.Count > 5) && (x.Foo == "test"));
+            return View("Index", model);
 
-
+        }
         //Method: purpose is to create Products/Create view that delivers the form to create a new product, including the product type dropdown (will need adjustment when creating subcategories) and customer dropdown on navbar
 
         [HttpGet]
@@ -77,7 +82,7 @@ namespace Bangazon.Controllers
         public IActionResult GetSubCategories([FromRoute]int id)
         {
             //get sub categories with that product type on them
-            var subTypes = context.ProductTypeSubCategory.Where(p => p.ProductTypeId == id).ToList();
+            var subTypes = context.ProductTypeSubCategory.OrderBy(s => s.Name.ToUpper()).Where(p => p.ProductTypeId == id).ToList();
             return Json(subTypes);
         }
 
@@ -125,8 +130,12 @@ namespace Bangazon.Controllers
 
             ProductTypesViewModel model = new ProductTypesViewModel(context);
             model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync();
+            model.ProductTypeSubCategories = await context.ProductTypeSubCategory.OrderBy(s => s.Name).ToListAsync();
+
+
             return View(model);
         }
+
         //Method: Purpose is to return the Error view
         public IActionResult Error()
         {

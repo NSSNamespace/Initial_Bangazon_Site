@@ -8,6 +8,16 @@
     @foreach (var type in Model.ProductTypes)
     {
         <div class="row typesList">
-            <div class="col-md-12"><a asp-controller="Products" asp-action="Type" asp-route-id="@type.ProductTypeId">@Html.DisplayFor(modelItem => type.Label)</a></div>
+            <div class="col-md-12"><h3>@Html.DisplayFor(modelItem => type.Label)</h3></div>
         </div>
+        
+        @foreach (var subcat in Model.ProductTypeSubCategories)
+        {   
+            if (subcat.ProductTypeId == type.ProductTypeId) 
+            {
+                <div class="row typesSubCategories">
+                    <div class="col-md-12"><a asp-controller="Products" asp-action="ProductsInSubCategory" asp-route-id="@subcat.ProductTypeSubCategoryId">@Html.DisplayFor(modelItem => subcat.Name)</a></div>
+                </div>
+            }
+        }
     }

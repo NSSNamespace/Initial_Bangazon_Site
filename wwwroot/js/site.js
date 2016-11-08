@@ -26,6 +26,19 @@ $(document).ready(function () {
             location.reload();
         });
     });
+
+    $("#Confirm").on("click", function(e) {
+        console.log('AddtoCart clicked')
+        $.ajax({
+            url: `/Order/Confirm`,
+            method: "PATCH",
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8'
+        }).done(() => {
+            console.log();
+            window.location.replace("http://localhost:5000/Order/Confirmation"); 
+        });
+    });
     //listener on product type dropdown that injects corresponding subcategories into product type subcategory dropdown
     $("#Product_ProductTypeId").on("change", function (e) {
         $.ajax({
