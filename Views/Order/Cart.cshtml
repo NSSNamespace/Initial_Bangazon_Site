@@ -28,7 +28,6 @@
         }
         <strong>Cart Total:</strong> $@Model.CartTotal
     </div>
- 
 </div>
 
 <div class="row">
@@ -36,7 +35,12 @@
     <strong>Cart Total:</strong> $@Model.CartTotal
   </div>
 </div>
-    
+  
+<div class="cartRightItemWrapper text-center">
+<a asp-controller="Order" disabled asp-controller="Order" asp-action="Confirmation" class="btn btn-danger btn-lg" id="Confirm" value="Submit Order"></a>
+</div>
+  
+
     <div class="col-sm-4 cartRightWrapper">
         <div class="cartRightItemWrapper text-center">
             @Html.DropDownList("Payment.PaymentTypeId", @Model.PaymentTypeId)
@@ -46,8 +50,5 @@
             <a class="btn btn-danger" asp-controller="Payment" asp-action="Create">Add Payment</a>
         </div>
 
-        <div class="cartRightItemWrapper text-center">
-            <input type="submit" disabled asp-controller="Order" asp-action="Confirmation" class="btn btn-danger btn-lg" id="Confirm" value="Submit Order">
-        </div>
+    
     </div>
-</div>
