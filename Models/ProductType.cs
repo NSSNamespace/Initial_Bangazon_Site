@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 /*
 Author: Fletcher Watson
@@ -12,6 +13,9 @@ namespace Bangazon.Models
     {
         [Key]
         public int ProductTypeId { get; set; }
+
+        [NotMappedAttribute]
+        public int Quantity {get;set;}
 
         [Required]
         [StringLength(50)]

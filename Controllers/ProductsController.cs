@@ -131,8 +131,11 @@ namespace Bangazon.Controllers
             ProductTypesViewModel model = new ProductTypesViewModel(context);
             model.ProductTypes = await context.ProductType.OrderBy(s => s.Label).ToListAsync();
             model.ProductTypeSubCategories = await context.ProductTypeSubCategory.OrderBy(s => s.Name).ToListAsync();
-
-
+            //list of subcategories
+            var subCats = context.ProductTypeSubCategory.ToList();
+            //cycle through each subcategory and define its Quantity as 
+            subCats.ForEach(sc => sc.Quantity = context.Product.Count(p => p.ProductTypeSubCategoryId == sc.ProductTypeSubCategoryId));
+            // model.ProductTypes = productTypes;
             return View(model);
         }
 
