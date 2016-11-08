@@ -55,4 +55,20 @@ $(document).ready(function () {
             });
         });
     });
+
+    if ($("#Payment_PaymentTypeId").val() == 0) {
+      $("#checkoutButton").prop("disabled", true);
+  }
+  else {
+      $("#checkoutButton").removeAttr("disabled");
+  }
+  $("#Payment_PaymentTypeId").on("change",function(){
+    if ($("#Payment_PaymentTypeId").val() > 0) {
+      $("#Confirm").removeAttr("disabled");
+    } 
+    else if ($("#Payment_PaymentTypeId").val() == 0)
+    {
+      $("#Confirm").prop("disabled", true);
+    }
+  })
 });

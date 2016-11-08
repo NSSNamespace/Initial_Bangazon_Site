@@ -30,9 +30,9 @@
     <strong>Cart Total:</strong> $@Model.CartTotal
   </div>
 </div>
-
+  
 <div class="row text-right">
- <a asp-controller="Order" asp-action="Confirmation" class="btn btn-danger btn-lg" id="Confirm">Submit Order</a>
+ <input type="submit" disabled asp-controller="Order" asp-action="Confirmation" class="btn btn-danger btn-lg" id="Confirm" value="Submit Order">
 </div>
-
+  
 
