@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 /*
 Author: Fletcher Watson
 */
@@ -45,5 +45,12 @@ namespace Bangazon.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public ICollection<LineItem> LineItem;
+
+        [NotMappedAttribute]
+        public int Quantity {get; set;}
+
+        [NotMappedAttribute]
+
+        public bool QuantityGreaterThanOne {get;set;}
     }
 }

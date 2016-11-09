@@ -7,34 +7,55 @@
 
 <div class="row">
     <div class="col-sm-8">
-
-        @foreach (var product in Model.Products)
+        
+        @foreach (var product in Model.SingleProducts)
         {
+            if(product.Quantity != 0) {
             <div class="cartItem">
                 <span class="cartItemSpec">
-                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
+                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
+                       
                         @Html.DisplayFor(modelItem => product.Title)
+    
                     </a>
                 </span>
 
                 <span class="cartItemSpec">
-                    @Html.DisplayFor(modelItem => product.Price)
+                    $@Html.DisplayFor(modelItem => product.Price)
                 </span>
-
+                        
                 <span class="cartItemSpec">
-                    Qty
+                    (@Html.DisplayFor(modelItem => product.Quantity))
                 </span>
             </div>
         }
-        <strong>Cart Total:</strong> $@Model.CartTotal
-    </div>
-</div>
+        }
+              @foreach (var product in Model.DuplicateProducts)
+        {
+            if(product.Quantity!= 0){
+            <div class="cartItem">
+                <span class="cartItemSpec">
+                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
+                        @Html.DisplayFor(modelItem => product.Title)
+                  </a>
+                </span>
+
+                <span class="cartItemSpec">
+                    $@Html.DisplayFor(modelItem => product.Price)
+                </span>
+                        
+                <span class="cartItemSpec">
+                    (@Html.DisplayFor(modelItem => product.Quantity))
+                </span>
+            </div>
+        }
+        }
 
 <div class="row">
   <div class="col-md-6">
     <strong>Cart Total:</strong> $@Model.CartTotal
   </div>
-</div>
+
   
 <div class="cartRightItemWrapper text-center">
     <a class="btn btn-danger" disabled asp-controller="Order" asp-action="Confirmation" id="Confirm">Submit Order</a>
@@ -49,6 +70,6 @@
         <div class="cartRightItemWrapper text-center">
             <a class="btn btn-danger" asp-controller="Payment" asp-action="Create">Add Payment</a>
         </div>
-
+    </div>
     
     </div>

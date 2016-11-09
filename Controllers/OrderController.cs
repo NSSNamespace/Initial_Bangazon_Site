@@ -49,7 +49,7 @@ namespace Bangazon.Controllers
        
         // Method: Purpose is to route the user to cart associated with the active customer
     
- [      HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Cart()
         {
             var customer = ActiveCustomer.instance.Customer;
@@ -59,25 +59,55 @@ namespace Bangazon.Controllers
 
             if (activeOrder == null)
             {
-               var product = new Product(){Description="You have no products in your cart!", Title=""};
-                model.Products = new List<Product>();
-                model.Products.Add(product);
+               var product = new Product(){Title=""};
+                model.SingleProducts = new List<Product>();
+                model.SingleProducts.Add(product);
+                
+                var duplicateProduct = new Product() {Title = ""};
+                model.DuplicateProducts = new List<Product>();
+                model.DuplicateProducts.Add(duplicateProduct);
                 return View(model);
             }
 
             List<LineItem> LineItemsOnActiveOrder = context.LineItem.Where(li => li.OrderId == activeOrder.OrderId).ToList();
             List<Product> ListOfProducts = new List<Product>();
+            List<Product>SingleProducts = new List<Product>();
+            List<Product>DuplicateProducts = new List<Product>();
+            
             decimal CartTotal = 0;
 
             for(var i = 0; i < LineItemsOnActiveOrder.Count(); i++)
             {
                 ListOfProducts.Add(context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault());
                 CartTotal += context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault().Price;
-            }
+            } 
 
             model.CartTotal = CartTotal;
             model.Products = ListOfProducts;
 
+            for (var i = 0; i < ListOfProducts.Count(); i++) {
+               ListOfProducts[i].Quantity += 1;
+            }
+
+            for (var i = 0; i < ListOfProducts.Count(); i++){
+                if (ListOfProducts[i].Quantity > 1) {
+               DuplicateProducts.Add(ListOfProducts[i]);
+                }
+                else {
+                   SingleProducts.Add(ListOfProducts[i]);
+                }
+            }
+            model.SingleProducts = SingleProducts;
+
+            for (var i = 0; i < DuplicateProducts.Count(); i++) {
+                for (var j = 0; j < DuplicateProducts.Count(); j++){
+                    if (DuplicateProducts[i].ProductId == DuplicateProducts[j].ProductId) {
+                        DuplicateProducts.Remove(DuplicateProducts[i]);
+                    }
+                }
+            }
+            model.DuplicateProducts = DuplicateProducts;
+            
             return View(model);
             
         }
