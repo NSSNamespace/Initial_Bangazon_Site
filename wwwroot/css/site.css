@@ -59,6 +59,10 @@ footer {
     bottom: -20px;
 }
 
+.cartWrapper {
+    margin-top: 15px;
+}
+
 .cartItem {
     margin-bottom: 10px;
 }
@@ -87,6 +91,17 @@ footer {
 }
 
 @media screen and (min-width: 768px) {
+
+    .cartLeftWrapper {
+        position: relative;
+        min-height: 120px;
+    }
+
+    .cartTotal {
+        position: absolute;
+        bottom: 0;
+    }
+
     .dropdownWrapper {
         margin-top: 3px;
         position: relative;

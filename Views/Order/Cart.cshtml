@@ -5,8 +5,10 @@
 }
 <h1> @ViewData["Title"] </h1>
 
-<div class="row">
-    <div class="col-sm-8">
+<hr />
+
+<div class="row cartWrapper">
+    <div class="col-sm-8 cartLeftWrapper">
         
         @foreach (var product in Model.SingleProducts)
         {
@@ -51,18 +53,18 @@
         }
         }
 
-<div class="row">
-  <div class="col-md-6">
-    <strong>Cart Total:</strong> $@Model.CartTotal
-  </div>
-
-  
-<div class="cartRightItemWrapper text-center">
-    <a class="btn btn-danger" disabled asp-controller="Order" asp-action="Confirmation" id="Confirm">Submit Order</a>
+    <span class="cartTotal"><strong>Cart Total:</strong> $@Model.CartTotal</span>
 </div>
   
 
+  
+
     <div class="col-sm-4 cartRightWrapper">
+
+        <div class="cartRightItemWrapper text-center">
+            <a class="btn btn-danger" disabled asp-controller="Order" asp-action="Confirmation" id="Confirm">Submit Order</a>
+        </div>
+
         <div class="cartRightItemWrapper text-center">
             @Html.DropDownList("Payment.PaymentTypeId", @Model.PaymentTypeId)
         </div>
@@ -72,4 +74,4 @@
         </div>
     </div>
     
-    </div>
+</div>
