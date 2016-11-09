@@ -18,6 +18,7 @@
                         if (prod.Quantity == 1) {
                         @Html.DisplayFor(modelItem => product.Title)
                         }
+                        @*SOMEHOW NEED TO TAKE THIS OUT OF THE FOREACH*@
 
                 }
                     </a>
@@ -26,7 +27,7 @@
                 <span class="cartItemSpec">
                     @Html.DisplayFor(modelItem => product.Price)
                 </span>
-                        }
+                        
                 <span class="cartItemSpec">
                     @Html.DisplayFor(modelItem => product.Quantity)
                 </span>

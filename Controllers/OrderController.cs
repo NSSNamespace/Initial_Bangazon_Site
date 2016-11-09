@@ -82,12 +82,11 @@ namespace Bangazon.Controllers
                ListOfProducts[i].Quantity += 1;
             }
 
-            // for (var i = 0; i < ListOfProducts.Count(); i++){
-            //     if (ListOfProducts[i].Quantity > 1) {
-
-            //     }
-            // }
-
+            for (var i = 0; i < ListOfProducts.Count(); i++){
+                if (ListOfProducts[i].Quantity > 1) {
+                ListOfProducts[i].QuantityGreaterThanOne = true;
+                }
+            }
             return View(model);
             
         }

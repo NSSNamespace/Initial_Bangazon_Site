@@ -48,5 +48,9 @@ namespace Bangazon.Models
 
         [NotMappedAttribute]
         public int Quantity {get; set;}
+
+        [NotMappedAttribute]
+
+        public bool QuantityGreaterThanOne {get;set;}
     }
 }
