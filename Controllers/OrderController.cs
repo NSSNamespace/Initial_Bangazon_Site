@@ -59,9 +59,13 @@ namespace Bangazon.Controllers
 
             if (activeOrder == null)
             {
-               var product = new Product(){Description="You have no products in your cart!", Title=""};
-                model.Products = new List<Product>();
-                model.Products.Add(product);
+               var product = new Product(){Title=""};
+                model.SingleProducts = new List<Product>();
+                model.SingleProducts.Add(product);
+                
+                var duplicateProduct = new Product() {Title = ""};
+                model.DuplicateProducts = new List<Product>();
+                model.DuplicateProducts.Add(duplicateProduct);
                 return View(model);
             }
 
