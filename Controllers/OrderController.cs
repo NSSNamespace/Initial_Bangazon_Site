@@ -8,26 +8,25 @@ using Bangazon.Models;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.ViewModels;
 
-//Author: David Yunker
+//Authors: David Yunker & Elliott Williams
 
 namespace Bangazon.Controllers
 {
 
-    //Defines the OrderController controller class, which inherits from base class Controller
+    //Class: OrderController, which inherits from base class Controller 
     public class OrderController : Controller
 
     {
-
-        
+        //Set a private property of BangazonContext on the controller so that it has access to the database
         private BangazonContext context;
 
-        //Method: Purpose is make existing session with db (BangazonContext) available to other methods throughout the controller via this custom constructor, which accepts existing session as argument
+        //Method: Custom contructor whose purpose is make existing session with db (BangazonContext) available to other methods throughout the controller, which accepts the existing database session as argument
         public OrderController(BangazonContext ctx)
         {
             context = ctx;
         }
 
-        //Method: Purpose is to return patch order in database to reflect date completed when customer clicks confirm button
+        //Method: Purpose is to patch an order in database to reflect date completed when customer clicks confirm button
         [HttpPatch]
         public async Task <IActionResult> Confirm()
         {
@@ -47,19 +46,15 @@ namespace Bangazon.Controllers
             BaseViewModel model = new BaseViewModel(context);
             return View(model);
         }
-        // Author: Elliott Williams
+       
         // Method: Purpose is to route the user to cart associated with the active customer
     
-
-
- [HttpGet]
+ [      HttpGet]
         public async Task<IActionResult> Cart()
         {
             var customer = ActiveCustomer.instance.Customer;
-
             var activeOrder = await context.Order.Where(o => o.DateCompleted == null && o.CustomerId==customer.CustomerId).SingleOrDefaultAsync();
             Console.WriteLine(activeOrder);
-
             OrderViewModel model = new OrderViewModel(context);
 
             if (activeOrder == null)
@@ -71,9 +66,7 @@ namespace Bangazon.Controllers
             }
 
             List<LineItem> LineItemsOnActiveOrder = context.LineItem.Where(li => li.OrderId == activeOrder.OrderId).ToList();
-            
             List<Product> ListOfProducts = new List<Product>();
-
             decimal CartTotal = 0;
 
             for(var i = 0; i < LineItemsOnActiveOrder.Count(); i++)

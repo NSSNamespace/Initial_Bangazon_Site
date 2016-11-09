@@ -11,45 +11,47 @@ namespace Bangazon.Controllers
 {
     
     
-    // Author: Jammy Laird 
+    // Authors: Jammy Laird & Liz Sanger
  
     
 
-// Defines the PaymentController controller class, which inherits from base class Controller
+// Class: PaymentController controller, which inherits from base class Controller
     public class PaymentController : Controller     
     {
-        private BangazonContext  context;
         //Set a private property on OrderController that stores the current session with db
+        private BangazonContext  context;
+
+        //Method: a custom constructor for the payment controller that passes in BangazonContext as an argument so that the controller has access to the database 
         public PaymentController(BangazonContext cxt)
         {
             context = cxt;
         }
-         //Method: Purpose is to return a view that allows the customer to create a payment method
+         //Method: Purpose is to inject the PaymentTypeViewModel into the Payment/Create view so that the customer can create a payment method
         public IActionResult Create()
         {
             PaymentTypeViewModel model = new PaymentTypeViewModel(context);
             return View(model);
         }
 
+        //Method: Purpose is to post a new payment type to the database and associate it with the active customer's id, accepts an argument of type Payment Type, which is composed of data injected in the payment/create form 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create (PaymentType paymentType)
         {
-            // The new payment type is linked to the active customer if the entered text satifies the model
-        
+            // Link the active customer's id to the newly created payment type
             var customer = ActiveCustomer.instance.Customer;
             paymentType.CustomerId = customer.CustomerId;
+            
+            //if the payment type received from the form is valid, post it to the database and redirect the customer to the Order/Cart view
             if (ModelState.IsValid)
             {
-                 //Add the line item to the database
+                 //Add the payment type to the database
                 context.Add(paymentType);
                 await context.SaveChangesAsync();
                 return RedirectToAction ("Cart", "Order");
             }
-            // if the model is not satisfied return an empty view
+            //otherwise, recreate the payment/create view, which will display an error message based on the invalidity in the model
             PaymentTypeViewModel model = new PaymentTypeViewModel(context);
-            // model.NewPaymentType = paymentType.NewPaymentType;
-
             return View(model);
         }
 
