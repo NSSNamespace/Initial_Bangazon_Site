@@ -16,6 +16,10 @@ namespace Bangazon.ViewModels
     public decimal CartTotal {get; set;}
     private BangazonContext context;
     private ActiveCustomer singleton = ActiveCustomer.instance;
+
+    public List <Product>SingleProducts {get; set;}
+
+    public List <Product>DuplicateProducts{get;set;}
  
     
     //Method Name: OrderViewModel custom contructor

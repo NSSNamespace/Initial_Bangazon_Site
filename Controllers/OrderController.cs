@@ -49,7 +49,7 @@ namespace Bangazon.Controllers
        
         // Method: Purpose is to route the user to cart associated with the active customer
     
- [      HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Cart()
         {
             var customer = ActiveCustomer.instance.Customer;
@@ -67,13 +67,16 @@ namespace Bangazon.Controllers
 
             List<LineItem> LineItemsOnActiveOrder = context.LineItem.Where(li => li.OrderId == activeOrder.OrderId).ToList();
             List<Product> ListOfProducts = new List<Product>();
+            List<Product>SingleProducts = new List<Product>();
+            List<Product>DuplicateProducts = new List<Product>();
+            
             decimal CartTotal = 0;
 
             for(var i = 0; i < LineItemsOnActiveOrder.Count(); i++)
             {
                 ListOfProducts.Add(context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault());
                 CartTotal += context.Product.Where(p => p.ProductId == LineItemsOnActiveOrder[i].ProductId).SingleOrDefault().Price;
-            }
+            } 
 
             model.CartTotal = CartTotal;
             model.Products = ListOfProducts;
@@ -84,9 +87,23 @@ namespace Bangazon.Controllers
 
             for (var i = 0; i < ListOfProducts.Count(); i++){
                 if (ListOfProducts[i].Quantity > 1) {
-                ListOfProducts[i].QuantityGreaterThanOne = true;
+               DuplicateProducts.Add(ListOfProducts[i]);
+                }
+                else {
+                   SingleProducts.Add(ListOfProducts[i]);
                 }
             }
+            model.SingleProducts = SingleProducts;
+
+            for (var i = 0; i < DuplicateProducts.Count(); i++) {
+                for (var j = 0; j < DuplicateProducts.Count(); j++){
+                    if (DuplicateProducts[i].ProductId == DuplicateProducts[j].ProductId) {
+                        DuplicateProducts.Remove(DuplicateProducts[i]);
+                    }
+                }
+            }
+            model.DuplicateProducts = DuplicateProducts;
+            
             return View(model);
             
         }
