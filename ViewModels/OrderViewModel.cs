@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bangazon.ViewModels
 {
+    //Class: OrderViewModel class
+    //Author: David Yunker
      public class OrderViewModel : BaseViewModel
   {
     public List<SelectListItem> PaymentTypeId { get; set; }
@@ -16,7 +18,7 @@ namespace Bangazon.ViewModels
     private ActiveCustomer singleton = ActiveCustomer.instance;
  
     
-    //Method Name: OrderViewModel
+    //Method Name: OrderViewModel custom contructor
     //Purpose of the Method: Upon construction this should take the context and send a list of select items of the type PaymentType to the View. They should be the paymentTypes of the active customer.
     //Arguments in Method: BangazonWebContext
     public OrderViewModel(BangazonContext ctx) : base (ctx)

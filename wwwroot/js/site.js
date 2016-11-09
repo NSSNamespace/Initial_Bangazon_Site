@@ -56,6 +56,8 @@ $(document).ready(function () {
         });
     });
 
+
+//conditional that checks whether Payment type dropdown menu on order view registers placeholder text prompting user to select a payment type; if so, order button is disabled
     if ($("#Payment_PaymentTypeId").val() == 0) {
       $("#checkoutButton").prop("disabled", true);
   }
