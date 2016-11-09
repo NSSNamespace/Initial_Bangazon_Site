@@ -12,17 +12,23 @@
         {
             <div class="cartItem">
                 <span class="cartItemSpec">
-                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products">
+                    <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
+                        @foreach (var prod in Model.Products)
+                        {
+                        if (prod.Quantity == 1) {
                         @Html.DisplayFor(modelItem => product.Title)
+                        }
+
+                }
                     </a>
                 </span>
 
                 <span class="cartItemSpec">
                     @Html.DisplayFor(modelItem => product.Price)
                 </span>
-
+                        }
                 <span class="cartItemSpec">
-                    Qty
+                    @Html.DisplayFor(modelItem => product.Quantity)
                 </span>
             </div>
         }

@@ -78,6 +78,16 @@ namespace Bangazon.Controllers
             model.CartTotal = CartTotal;
             model.Products = ListOfProducts;
 
+            for (var i = 0; i < ListOfProducts.Count(); i++) {
+               ListOfProducts[i].Quantity += 1;
+            }
+
+            // for (var i = 0; i < ListOfProducts.Count(); i++){
+            //     if (ListOfProducts[i].Quantity > 1) {
+
+            //     }
+            // }
+
             return View(model);
             
         }
