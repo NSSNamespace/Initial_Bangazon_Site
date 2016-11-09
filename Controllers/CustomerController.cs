@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bangazon.Controllers
 {
-    //Create a new class called CustomersController, purpose is to allow users to create an account on the website, as well as select the active user from a dropdown menu in the navbar
+    //Class: customer controller, which inherits from base class Controller 
     public class CustomersController : Controller
     {
 
@@ -29,7 +29,7 @@ namespace Bangazon.Controllers
             context = ctx;
         }
 
-        //Create a new instance of the CreateCustomerViewModel and return the Customer/Create view
+        //Method: purpose is to create a new instance of the CreateCustomerViewModel and inject it into the Customer/Create view
            public IActionResult Create()
         {
             CreateCustomerViewModel model = new CreateCustomerViewModel(context);
@@ -37,10 +37,11 @@ namespace Bangazon.Controllers
             return View(model);
         }
 
+        //Method: Overloaded Create method, the purpose of is to post a new customer to the database. Accepts an argument of type Customer, which is composed of the customer info entered into the Customer/Create view. This method also defines the newly created customer as the active customer and passes that active customer into the link below the customerId dropdown menu
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //Overload the Create() method with an async Task that sends a new customer. Also adds new customer's information to dropdown
-
+        
         public async Task<IActionResult> Create(Customer customer)
         {
             CreateCustomerViewModel model = new CreateCustomerViewModel(context); 
