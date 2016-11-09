@@ -15,19 +15,16 @@
                     <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
                        
                         @Html.DisplayFor(modelItem => product.Title)
-                        
-                        @*SOMEHOW NEED TO TAKE THIS OUT OF THE FOREACH*@
-
-        
+    
                     </a>
                 </span>
 
                 <span class="cartItemSpec">
-                    @Html.DisplayFor(modelItem => product.Price)
+                    $@Html.DisplayFor(modelItem => product.Price)
                 </span>
                         
                 <span class="cartItemSpec">
-                    @Html.DisplayFor(modelItem => product.Quantity)
+                    (@Html.DisplayFor(modelItem => product.Quantity))
                 </span>
             </div>
         }
@@ -36,21 +33,16 @@
             <div class="cartItem">
                 <span class="cartItemSpec">
                     <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
-                       
                         @Html.DisplayFor(modelItem => product.Title)
-                        
-                        @*SOMEHOW NEED TO TAKE THIS OUT OF THE FOREACH*@
-
-        
-                    </a>
+                  </a>
                 </span>
 
                 <span class="cartItemSpec">
-                    @Html.DisplayFor(modelItem => product.Price)
+                    $@Html.DisplayFor(modelItem => product.Price)
                 </span>
                         
                 <span class="cartItemSpec">
-                    @Html.DisplayFor(modelItem => product.Quantity)
+                    (@Html.DisplayFor(modelItem => product.Quantity))
                 </span>
             </div>
         }
