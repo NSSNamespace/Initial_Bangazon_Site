@@ -10,6 +10,7 @@
         
         @foreach (var product in Model.SingleProducts)
         {
+            if(product.Quantity != 0) {
             <div class="cartItem">
                 <span class="cartItemSpec">
                     <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
@@ -28,8 +29,10 @@
                 </span>
             </div>
         }
+        }
               @foreach (var product in Model.DuplicateProducts)
         {
+            if(product.Quantity!= 0){
             <div class="cartItem">
                 <span class="cartItemSpec">
                     <a asp-action="Detail" asp-route-id="@product.ProductId" asp-controller="Products"> 
@@ -46,12 +49,13 @@
                 </span>
             </div>
         }
+        }
 
 <div class="row">
   <div class="col-md-6">
     <strong>Cart Total:</strong> $@Model.CartTotal
   </div>
-</div>
+
   
 <div class="cartRightItemWrapper text-center">
     <a class="btn btn-danger" disabled asp-controller="Order" asp-action="Confirmation" id="Confirm">Submit Order</a>
@@ -66,6 +70,6 @@
         <div class="cartRightItemWrapper text-center">
             <a class="btn btn-danger" asp-controller="Payment" asp-action="Create">Add Payment</a>
         </div>
-
+    </div>
     
     </div>
